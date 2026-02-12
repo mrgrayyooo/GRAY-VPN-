@@ -5,12 +5,17 @@ on:
   schedule:
     - cron: "*/30 * * * *"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - uses: actions/setup-python@v5
         with:
@@ -22,8 +27,8 @@ jobs:
 
       - name: Commit result
         run: |
-          git config --global user.name "auto-bot"
-          git config --global user.email "bot@local"
+          git config user.name "auto-bot"
+          git config user.email "bot@local"
           git add best_nodes.txt
-          git commit -m "update nodes" || echo "no changes"
+          git diff --cached --quiet || git commit -m "update nodes"
           git push
