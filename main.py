@@ -12,19 +12,32 @@ import os
 OUTPUT_FILE = "best_nodes.txt"
 HISTORY_FILE = "node_history.json"
 
-MAX_CHECK = 300
-FINAL_LIMIT = 25
-CONCURRENCY = 80
+MAX_CHECK = 600
+FINAL_LIMIT = 30
+SNI_LIMIT = 2
+COUNTRY_LIMIT = 10
+
+CONCURRENCY = 150
 
 TCP_TIMEOUT = 2
 TLS_TIMEOUT = 2
+HEAD_TIMEOUT = 2
 
 PRIORITY_COUNTRIES = ["DE", "NL", "PL", "LT", "LV", "SE"]
 
 SOURCES = [
     "https://raw.githubusercontent.com/barry-far/V2ray-Configs/main/Splitted-By-Protocol/vless.txt",
-    "https://raw.githubusercontent.com/Danialsamadi/v2go/main/Splitted-By-Country/DE.txt",
-    "https://raw.githubusercontent.com/Danialsamadi/v2go/main/Splitted-By-Country/NL.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/PL.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/LT.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/DE.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/LV.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/EE.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/NL.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/SE.txt",
+    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/6.txt",
+    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/25.txt",
+    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/22.txt",
+    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/23.txt"
 ]
 
 class Node:
@@ -36,12 +49,29 @@ class Node:
         self.country = "XX"
         self.tcp_ping = None
         self.tls_ping = None
+        self.head_ping = None
         self.score = 9999
+        self.stability_bonus = 0
 
     def compute_score(self):
         tcp = self.tcp_ping or 9999
         tls = self.tls_ping or tcp
-        self.score = tcp * 0.6 + tls * 0.4
+        head = self.head_ping if self.head_ping else 300
+
+        base = tcp * 0.5 + tls * 0.3 + head * 0.2
+        self.score = base - self.stability_bonus
+
+
+def load_history():
+    if not os.path.exists(HISTORY_FILE):
+        return {}
+    with open(HISTORY_FILE, "r") as f:
+        return json.load(f)
+
+
+def save_history(history):
+    with open(HISTORY_FILE, "w") as f:
+        json.dump(history, f)
 
 
 async def tcp_test(node, sem):
@@ -62,9 +92,6 @@ async def tcp_test(node, sem):
 async def tls_test(node, sem):
     async with sem:
         try:
-            if not node.sni:
-                return
-
             ctx = ssl.create_default_context()
             ctx.check_hostname = False
             ctx.verify_mode = ssl.CERT_NONE
@@ -86,6 +113,21 @@ async def tls_test(node, sem):
             pass
 
 
+async def head_test(node, session, sem):
+    if "security=reality" in node.link:
+        return
+    async with sem:
+        try:
+            start = time.time()
+            async with session.head(
+                f"https://{node.sni}",
+                timeout=HEAD_TIMEOUT
+            ):
+                node.head_ping = int((time.time() - start) * 1000)
+        except:
+            pass
+
+
 async def detect_country(session, ip):
     try:
         async with session.get(
@@ -98,7 +140,17 @@ async def detect_country(session, ip):
         return "XX"
 
 
+async def assign_country(node, session):
+    try:
+        ip = socket.gethostbyname(node.host)
+        node.country = await detect_country(session, ip)
+    except:
+        node.country = "XX"
+
+
 async def main():
+    print("Loading sources...")
+
     all_links = []
 
     async with aiohttp.ClientSession() as session:
@@ -116,6 +168,7 @@ async def main():
     nodes = []
 
     for link in unique:
+
         if "🔒" in link:
             continue
 
@@ -126,12 +179,21 @@ async def main():
             if not p.hostname:
                 continue
 
+            node_type = params.get("type", ["tcp"])[0]
+            if node_type not in ["ws", "tcp", "raw"]:
+                continue
+
+            if "reality" in link:
+                if not all(x in link for x in ["pbk=", "sni=", "fp="]):
+                    continue
+
             node = Node(link)
             node.host = p.hostname
             node.port = p.port or 443
             node.sni = params.get("sni", [p.hostname])[0]
 
             nodes.append(node)
+
         except:
             continue
 
@@ -143,31 +205,60 @@ async def main():
     await asyncio.gather(*(tls_test(n, sem) for n in nodes))
 
     async with aiohttp.ClientSession() as session:
-        for n in nodes:
-            try:
-                ip = socket.gethostbyname(n.host)
-                n.country = await detect_country(session, ip)
-            except:
-                n.country = "XX"
+        await asyncio.gather(*(assign_country(n, session) for n in nodes))
+        await asyncio.gather(*(head_test(n, session, sem) for n in nodes))
+
+    history = load_history()
 
     for n in nodes:
+        key = f"{n.host}:{n.port}"
+        record = history.get(key, {"success": 0})
+        record["success"] += 1
+        history[key] = record
+
+        n.stability_bonus = min(record["success"] * 5, 50)
+
+        # штраф cloudflare диапазона
+        if n.host.startswith(("104.", "172.", "188.", "185.")):
+            n.stability_bonus -= 15
+
         n.compute_score()
+
+    save_history(history)
 
     def priority(n):
         return (0 if n.country in PRIORITY_COUNTRIES else 1)
 
     nodes.sort(key=lambda n: (priority(n), n.score))
 
-    final = nodes[:FINAL_LIMIT]
+    final = []
+    sni_count = defaultdict(int)
+    country_count = defaultdict(int)
+
+    for n in nodes:
+        if len(final) >= FINAL_LIMIT:
+            break
+        if sni_count[n.sni] >= SNI_LIMIT:
+            continue
+        if country_count[n.country] >= COUNTRY_LIMIT:
+            continue
+
+        final.append(n)
+        sni_count[n.sni] += 1
+        country_count[n.country] += 1
+
+    final.sort(key=lambda n: n.score)
+
+    header = "#profile-title: 🚀 GRAY VPN [Fast & Sorted]\n#profile-update-interval: 1\n#subscription-userinfo: upload=1; download=1; total=9999999999999; expire=9999999999\n\n"
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        f.write("#profile-title: 🚀 GRAY VPN\n\n")
+        f.write(header)
         for n in final:
-            name = f"{n.country} | {int(n.score)}ms"
             base = n.link.split("#")[0]
+            name = f"{n.country} | {int(n.score)}ms"
             f.write(f"{base}#{name}\n")
 
-    print("DONE:", len(final))
+    print("DONE. Nodes:", len(final))
 
 
 if __name__ == "__main__":
