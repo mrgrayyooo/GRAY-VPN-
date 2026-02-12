@@ -266,7 +266,7 @@ async def main():
 
     subscription_info = f"upload=0; download=0; total={TOTAL_BYTES}; expire={expire_ts}"
 
-    header = f"""#profile-title: 🚀 GRAY VPN [Тариф: Для Близких]
+    header = f"""#profile-title: 🚀 GRAY VPN [Тариф: 200ГБ в месяц]
 #profile-update-interval: 60
 #profile-web-page-url: https://grayvpn.ru
 #profile-icon-url: https://grayvpn.ru/logo.png
