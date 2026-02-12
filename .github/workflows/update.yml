@@ -1,0 +1,29 @@
+name: Update Nodes
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: pip install -r requirements.txt
+
+      - run: python main.py
+
+      - name: Commit result
+        run: |
+          git config --global user.name "auto-bot"
+          git config --global user.email "bot@local"
+          git add best_nodes.txt
+          git commit -m "update nodes" || echo "no changes"
+          git push
