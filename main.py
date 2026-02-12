@@ -249,7 +249,7 @@ async def main():
 
     final.sort(key=lambda n: n.score)
 
-    header = "#profile-title: 🚀 GRAY VPN [Fast & Sorted]\n#profile-update-interval: 1\n#subscription-userinfo: upload=1; download=1; total=9999999999999; expire=9999999999\n\n"
+    header = "#profile-title: 🚀 GRAY VPN [Тариф: Для Близких]\n#profile-update-interval: 1\n#subscription-userinfo: upload=1; download=1; total=9999999999999; expire=9999999999\n\n"
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write(header)
