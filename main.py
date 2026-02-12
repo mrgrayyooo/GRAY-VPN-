@@ -8,6 +8,7 @@ import socket
 from urllib.parse import urlparse, parse_qs
 from collections import defaultdict
 import os
+from datetime import datetime
 
 OUTPUT_FILE = "best_nodes.txt"
 HISTORY_FILE = "node_history.json"
@@ -40,6 +41,20 @@ SOURCES = [
     "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/26.txt"
 ]
 
+
+def get_month_expire():
+    now = datetime.utcnow()
+    year = now.year
+    month = now.month
+
+    if month == 12:
+        next_month = datetime(year + 1, 1, 1)
+    else:
+        next_month = datetime(year, month + 1, 1)
+
+    return int(next_month.timestamp())
+
+
 class Node:
     def __init__(self, link):
         self.link = link
@@ -57,7 +72,6 @@ class Node:
         tcp = self.tcp_ping or 9999
         tls = self.tls_ping or tcp
         head = self.head_ping if self.head_ping else 300
-
         base = tcp * 0.5 + tls * 0.3 + head * 0.2
         self.score = base - self.stability_bonus
 
@@ -164,11 +178,9 @@ async def main():
                 pass
 
     unique = list(set(all_links))[:MAX_CHECK]
-
     nodes = []
 
     for link in unique:
-
         if "🔒" in link:
             continue
 
@@ -191,7 +203,6 @@ async def main():
             node.host = p.hostname
             node.port = p.port or 443
             node.sni = params.get("sni", [p.hostname])[0]
-
             nodes.append(node)
 
         except:
@@ -218,7 +229,6 @@ async def main():
 
         n.stability_bonus = min(record["success"] * 5, 50)
 
-        # штраф cloudflare диапазона
         if n.host.startswith(("104.", "172.", "188.", "185.")):
             n.stability_bonus -= 15
 
@@ -249,7 +259,20 @@ async def main():
 
     final.sort(key=lambda n: n.score)
 
-    header = "#profile-title: 🚀 GRAY VPN [Тариф: Для Близких]\n#profile-update-interval: 1\n#subscription-userinfo: upload=1; download=1; total=9999999999999; expire=9999999999\n\n"
+    # ====== SUBSCRIPTION HEADER ======
+    TOTAL_GB = 200
+    TOTAL_BYTES = TOTAL_GB * 1024 * 1024 * 1024
+    expire_ts = get_month_expire()
+
+    subscription_info = f"upload=0; download=0; total={TOTAL_BYTES}; expire={expire_ts}"
+
+    header = f"""#profile-title: 🚀 GRAY VPN [Тариф: Для Близких]
+#profile-update-interval: 60
+#profile-web-page-url: https://grayvpn.ru
+#profile-icon-url: https://grayvpn.ru/logo.png
+#subscription-userinfo: {subscription_info}
+
+"""
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write(header)
