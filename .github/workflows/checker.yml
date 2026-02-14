@@ -53,14 +53,23 @@ jobs:
       env:
         SPEED_LIMIT: ${{ env.SPEED_LIMIT }}
 
-    - name: Commit result
+    - name: Commit and push results
       run: |
         git config --global user.name "bot"
         git config --global user.email "bot@users.noreply.github.com"
         git add best_nodes.txt
-        git commit -m "update nodes" || echo "no changes"
+        git commit -m "update nodes" || echo "No changes to commit"
+        
+        # Показываем, какие файлы мешают (если есть)
+        echo "=== Неотслеживаемые/изменённые файлы ==="
+        git status --porcelain
+        
+        # Обновляем ветку
         git pull --rebase origin main
-        git push
-
-    - name: Debug status
-      run: git status --porcelain
+        
+        # Пушим только если были изменения
+        if [ -n "$(git status --porcelain)" ]; then
+          git push
+        else
+          echo "No new changes to push"
+        fi
