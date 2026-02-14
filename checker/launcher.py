@@ -19,10 +19,10 @@ XRAY_PATH = "./core/xray"
 MAX_CHECK = 3000
 FINAL_LIMIT = 150
 CONCURRENCY = 30
-SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.5))  # Мбит/с
+SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.3))  # Мбит/с
 TEST_URL = "https://speed.cloudflare.com/__down?bytes=10000000"
 IPAPI_BATCH_URL = "http://ip-api.com/batch?fields=countryCode"
-TCP_PING_TIMEOUT = 2
+TCP_PING_TIMEOUT = 3
 
 # Настройка логирования
 logging.basicConfig(
@@ -36,7 +36,7 @@ logger = logging.getLogger("checker")
 SOURCES = [
     "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/PL.txt",
     "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/Vless-Reality-White-Lists-Rus-Mobile.txt",
-    "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/WHITE-SNI-RU-all.txt",
+    "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/WHITE-SNI-RU-all.txt"
 ]
 
 # ------------------ Утилиты ------------------
