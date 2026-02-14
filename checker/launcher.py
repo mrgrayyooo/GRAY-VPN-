@@ -19,10 +19,12 @@ XRAY_PATH = "./core/xray"
 MAX_CHECK = 3000
 FINAL_LIMIT = 150
 CONCURRENCY = 30
-SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.5))  # Мбит/с
+SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.5))  # Мбит/с, можно менять через env
 TEST_URL = "https://speed.cloudflare.com/__down?bytes=10000000"
 IPAPI_BATCH_URL = "http://ip-api.com/batch?fields=countryCode"
-TCP_PING_TIMEOUT = 2
+TCP_PING_TIMEOUT = 4          # увеличено с 2 до 4 секунд
+XRAY_STARTUP_TIME = 4         # новое: время ожидания запуска Xray (было 2)
+IPAPI_TIMEOUT = 15            # увеличено для batch
 
 # Настройка логирования
 logging.basicConfig(
@@ -32,14 +34,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger("checker")
 
-# ------------------ Источники (ПОЛНЫЙ СПИСОК) ------------------
+# ------------------ Источники (твои текущие) ------------------
 SOURCES = [
     "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/PL.txt",
     "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/Vless-Reality-White-Lists-Rus-Mobile.txt",
     "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/WHITE-SNI-RU-all.txt",
 ]
 
-# ------------------ Утилиты ------------------
+# ------------------ Утилиты (без изменений) ------------------
 def flag_emoji(cc: str) -> str:
     if len(cc) != 2:
         return "🏳"
@@ -110,7 +112,6 @@ async def tcp_ping(host: str, port: int, timeout: float = TCP_PING_TIMEOUT) -> b
 
 # ------------------ Проверка Xray ------------------
 async def check_xray() -> bool:
-    """Проверяет работоспособность Xray и выводит версию."""
     try:
         proc = await asyncio.create_subprocess_exec(
             XRAY_PATH, "version",
@@ -239,38 +240,63 @@ class Node:
     def is_valid(self) -> bool:
         return self.valid is not None
 
-# ------------------ Speed test ------------------
-async def speed_test(port: int) -> float:
-    start = time.time()
-    try:
-        from aiohttp_socks import ProxyConnector
-        connector = ProxyConnector.from_url(f"socks5://127.0.0.1:{port}")
-        timeout = aiohttp.ClientTimeout(total=20)
-        async with aiohttp.ClientSession(timeout=timeout, connector=connector) as sess:
-            async with sess.get(TEST_URL) as resp:
-                await resp.read()
-        elapsed = time.time() - start
-        return 80 / elapsed
-    except Exception as e:
-        logger.debug(f"Speed test error: {e}")
-        return 0.0
-
-async def ping_test(port: int) -> float:
-    """Измеряет RTT до google.com через прокси, возвращает время в мс."""
-    try:
-        from aiohttp_socks import ProxyConnector
-        connector = ProxyConnector.from_url(f"socks5://127.0.0.1:{port}")
-        timeout = aiohttp.ClientTimeout(total=5)
+# ------------------ Speed test с повторными попытками ------------------
+async def speed_test(port: int, retries: int = 2) -> float:
+    for attempt in range(retries):
         start = time.time()
-        async with aiohttp.ClientSession(timeout=timeout, connector=connector) as sess:
-            async with sess.head("http://www.google.com") as resp:
-                if resp.status == 200:
-                    elapsed = (time.time() - start) * 1000  # в миллисекундах
-                    return elapsed
-                else:
-                    return 9999
+        try:
+            from aiohttp_socks import ProxyConnector
+            connector = ProxyConnector.from_url(f"socks5://127.0.0.1:{port}")
+            timeout = aiohttp.ClientTimeout(total=20)
+            async with aiohttp.ClientSession(timeout=timeout, connector=connector) as sess:
+                async with sess.get(TEST_URL) as resp:
+                    await resp.read()
+            elapsed = time.time() - start
+            return 80 / elapsed
+        except Exception as e:
+            if attempt == retries - 1:
+                logger.debug(f"Speed test error after {retries} attempts: {e}")
+                return 0.0
+            await asyncio.sleep(1)
+    return 0.0
+
+async def ping_test(port: int, retries: int = 2) -> float:
+    """Измеряет RTT до google.com через прокси, возвращает время в мс."""
+    for attempt in range(retries):
+        try:
+            from aiohttp_socks import ProxyConnector
+            connector = ProxyConnector.from_url(f"socks5://127.0.0.1:{port}")
+            timeout = aiohttp.ClientTimeout(total=5)
+            start = time.time()
+            async with aiohttp.ClientSession(timeout=timeout, connector=connector) as sess:
+                async with sess.head("http://www.google.com") as resp:
+                    if resp.status == 200:
+                        elapsed = (time.time() - start) * 1000
+                        return elapsed
+                    else:
+                        return 9999
+        except Exception:
+            if attempt == retries - 1:
+                return 9999
+            await asyncio.sleep(1)
+    return 9999
+
+# ------------------ Проверка конфига через Xray check ------------------
+async def check_config_valid(cfg_path: str) -> bool:
+    """Запускает Xray check для проверки конфига, возвращает True если ок."""
+    try:
+        proc = await asyncio.create_subprocess_exec(
+            XRAY_PATH, "check", "-c", cfg_path,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
+        stdout, stderr = await proc.communicate()
+        if proc.returncode != 0:
+            logger.debug(f"Xray config check failed: {stderr.decode()}")
+            return False
+        return True
     except Exception:
-        return 9999
+        return False
 
 # ------------------ Проверка одной ноды ------------------
 async def check_node(node: Node, temp_dir: str, stats: dict) -> Optional[Node]:
@@ -293,6 +319,13 @@ async def check_node(node: Node, temp_dir: str, stats: dict) -> Optional[Node]:
     with os.fdopen(fd, 'w') as f:
         json.dump(config, f)
 
+    # Проверяем конфиг через Xray check
+    if not await check_config_valid(cfg_path):
+        stats['xray_fail'] += 1
+        logger.debug(f"Config invalid for {host}:{port}")
+        os.unlink(cfg_path)
+        return None
+
     try:
         proc = await asyncio.create_subprocess_exec(
             XRAY_PATH, "run", "-c", cfg_path,
@@ -300,7 +333,8 @@ async def check_node(node: Node, temp_dir: str, stats: dict) -> Optional[Node]:
             stderr=asyncio.subprocess.PIPE
         )
 
-        await asyncio.sleep(2)
+        # Увеличили время ожидания
+        await asyncio.sleep(XRAY_STARTUP_TIME)
 
         if proc.returncode is not None:
             _, stderr = await proc.communicate()
@@ -342,7 +376,7 @@ async def check_node(node: Node, temp_dir: str, stats: dict) -> Optional[Node]:
         except OSError:
             pass
 
-# ------------------ Пул воркеров ------------------
+# ------------------ Пул воркеров (без изменений) ------------------
 async def worker(queue: asyncio.Queue, results: list, temp_dir: str, sem: asyncio.Semaphore, stats: dict):
     while True:
         node = await queue.get()
@@ -385,11 +419,12 @@ async def run_checks(nodes: List[Node], temp_dir: str) -> List[Node]:
 
     return results
 
-# ------------------ Получение стран ------------------
+# ------------------ Получение стран с повторными попытками и fallback ------------------
 async def fetch_countries_batch(nodes: List[Node], session: aiohttp.ClientSession):
     if not nodes:
         return
 
+    # Собираем уникальные хосты
     hosts = []
     node_by_host = {}
     for n in nodes:
@@ -400,28 +435,67 @@ async def fetch_countries_batch(nodes: List[Node], session: aiohttp.ClientSessio
         node_by_host.setdefault(host, []).append(n)
 
     unique_hosts = list(set(hosts))
+    logger.info(f"Определяем страны для {len(unique_hosts)} уникальных хостов")
+
+    # Попытка batch запроса
     batch_size = 100
+    failed_hosts = set()
+
     for i in range(0, len(unique_hosts), batch_size):
         batch = unique_hosts[i:i+batch_size]
-        try:
-            async with session.post(IPAPI_BATCH_URL, json=batch, timeout=10) as resp:
-                if resp.status == 200:
-                    data = await resp.json()
-                    for entry in data:
-                        if entry.get('status') == 'success':
-                            host = entry.get('query')
-                            cc = entry.get('countryCode', 'XX')
-                            for node in node_by_host.get(host, []):
-                                node.country = cc
-                else:
-                    logger.warning(f"ip-api вернул {resp.status}")
-        except Exception as e:
-            logger.warning(f"Ошибка получения стран: {e}")
+        success = False
+        for attempt in range(3):  # до 3 попыток на batch
+            try:
+                async with session.post(IPAPI_BATCH_URL, json=batch, timeout=IPAPI_TIMEOUT) as resp:
+                    if resp.status == 200:
+                        data = await resp.json()
+                        for entry in data:
+                            if entry.get('status') == 'success':
+                                host = entry.get('query')
+                                cc = entry.get('countryCode', 'XX')
+                                for node in node_by_host.get(host, []):
+                                    node.country = cc
+                            else:
+                                # Запоминаем неудачные хосты для fallback
+                                if 'query' in entry:
+                                    failed_hosts.add(entry['query'])
+                        success = True
+                        break
+                    else:
+                        logger.warning(f"ip-api batch вернул {resp.status}, попытка {attempt+1}")
+            except Exception as e:
+                logger.warning(f"Ошибка batch запроса (попытка {attempt+1}): {e}")
+            await asyncio.sleep(2 ** attempt)  # exponential backoff
 
+        if not success:
+            logger.warning(f"Не удалось получить данные для batch {i//batch_size + 1}, добавляем хосты в fallback")
+            failed_hosts.update(batch)
+
+        # Небольшая задержка между батчами
         if i + batch_size < len(unique_hosts):
             await asyncio.sleep(1)
 
-# ------------------ Запись вывода ------------------
+    # Fallback: для оставшихся хостов пробуем по одному
+    if failed_hosts:
+        logger.info(f"Fallback: пробуем определить страны для {len(failed_hosts)} хостов по одному")
+        for host in failed_hosts:
+            try:
+                async with session.get(f"http://ip-api.com/json/{host}?fields=countryCode", timeout=10) as resp:
+                    if resp.status == 200:
+                        data = await resp.json()
+                        if data.get('status') == 'success':
+                            cc = data.get('countryCode', 'XX')
+                            for node in node_by_host.get(host, []):
+                                node.country = cc
+                        else:
+                            logger.debug(f"Fallback: {host} вернул неуспех")
+                    else:
+                        logger.debug(f"Fallback: HTTP {resp.status} для {host}")
+            except Exception as e:
+                logger.debug(f"Fallback ошибка для {host}: {e}")
+            await asyncio.sleep(1)  # не чаще 1 запроса в секунду
+
+# ------------------ Запись вывода (без изменений) ------------------
 async def write_output(nodes: List[Node]):
     TOTAL_BYTES = 200 * 1024 * 1024 * 1024
     header = f"""#profile-title: 🚀 GRAY VPN [Тариф: 200ГБ в месяц]
@@ -445,6 +519,7 @@ async def main():
     logger.info("Запуск проверщика VLESS нод")
     logger.info(f"Порог скорости: {SPEED_LIMIT} Мбит/с")
     logger.info(f"TCP Ping таймаут: {TCP_PING_TIMEOUT} сек")
+    logger.info(f"Ожидание запуска Xray: {XRAY_STARTUP_TIME} сек")
 
     if not await check_xray():
         logger.error("Xray не работает, прерываем")
