@@ -19,7 +19,7 @@ XRAY_PATH = "./core/xray"
 MAX_CHECK = 3000
 FINAL_LIMIT = 30
 CONCURRENCY = 30
-SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.5))  # временно 1 Мбит/с
+SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.5))  # Мбит/с
 TEST_URL = "https://speed.cloudflare.com/__down?bytes=10000000"
 IPAPI_BATCH_URL = "http://ip-api.com/batch?fields=countryCode"
 TCP_PING_TIMEOUT = 2
@@ -36,8 +36,19 @@ logger = logging.getLogger("checker")
 SOURCES = [
     "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/Vless-Reality-White-Lists-Rus-Mobile.txt",
     "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/BLACK_VLESS_RUS_mobile.txt",
+    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/refs/heads/main/githubmirror/1.txt",
+    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/refs/heads/main/githubmirror/7.txt",
     "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/6.txt",
     "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/PL.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/LT.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/DE.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/LV.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/EE.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/NL.txt",
+    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/SE.txt",
+    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/25.txt",
+    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/22.txt",
+    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/23.txt"
 ]
 
 # ------------------ Утилиты ------------------
@@ -111,44 +122,26 @@ async def tcp_ping(host: str, port: int, timeout: float = TCP_PING_TIMEOUT) -> b
 
 # ------------------ Проверка Xray ------------------
 async def check_xray() -> bool:
+    """Проверяет работоспособность Xray и выводит версию."""
     try:
-                proc = await asyncio.create_subprocess_exec(
-            XRAY_PATH, "run", "-c", cfg_path,
-            stdout=asyncio.subprocess.DEVNULL,
+        proc = await asyncio.create_subprocess_exec(
+            XRAY_PATH, "version",
+            stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE
         )
-
-        await asyncio.sleep(2)
-
-        if proc.returncode is not None:
-            _, stderr = await proc.communicate()
-            logger.debug(f"Xray died: {stderr.decode()}")
-            stats['xray_fail'] += 1
-            return None
-
-        # --- НОВЫЙ БЛОК: измеряем пинг ---
-        ping = await ping_test(local_port)
-        if ping > 200:  # если пинг выше 200 мс, можно отметить, но пока не отбрасываем
-            stats['ping_high'] = stats.get('ping_high', 0) + 1
-            logger.debug(f"High ping: {ping:.0f} ms for {host}:{port}")
-
-        # --- Далее как обычно ---
-        speed = await speed_test(local_port)
-        proc.terminate()
-        try:
-            await asyncio.wait_for(proc.wait(), timeout=2)
-        except asyncio.TimeoutError:
-            proc.kill()
-            await proc.wait()
-
-        if speed > SPEED_LIMIT:
-            node.speed = speed
-            node.ping = ping          # сохраняем пинг
-            stats['speed_ok'] += 1
-            return node
+        stdout, stderr = await proc.communicate()
+        if proc.returncode == 0:
+            logger.info(f"Xray version: {stdout.decode().strip()}")
+            return True
         else:
-            stats['speed_low'] += 1
-            return None
+            logger.error(f"Xray check failed: {stderr.decode()}")
+            return False
+    except FileNotFoundError:
+        logger.error(f"Xray not found at {XRAY_PATH}")
+        return False
+    except Exception as e:
+        logger.error(f"Xray check error: {e}")
+        return False
 
 # ------------------ Построение конфига Xray ------------------
 def build_config(valid_link: dict, local_port: int) -> dict:
@@ -273,7 +266,7 @@ async def speed_test(port: int) -> float:
     except Exception as e:
         logger.debug(f"Speed test error: {e}")
         return 0.0
-        
+
 async def ping_test(port: int) -> float:
     """Измеряет RTT до google.com через прокси, возвращает время в мс."""
     try:
@@ -327,6 +320,14 @@ async def check_node(node: Node, temp_dir: str, stats: dict) -> Optional[Node]:
             stats['xray_fail'] += 1
             return None
 
+        # Измеряем пинг
+        ping = await ping_test(local_port)
+        if ping > 200:
+            stats['ping_high'] += 1
+            logger.debug(f"High ping: {ping:.0f} ms for {host}:{port}")
+        node.ping = ping
+
+        # Измеряем скорость
         speed = await speed_test(local_port)
         proc.terminate()
         try:
@@ -373,7 +374,8 @@ async def run_checks(nodes: List[Node], temp_dir: str) -> List[Node]:
 
     results = []
     sem = asyncio.Semaphore(CONCURRENCY)
-        stats = {'invalid': 0, 'tcp_fail': 0, 'tcp_ok': 0, 'xray_fail': 0, 'speed_low': 0, 'speed_ok': 0, 'error': 0, 'ping_high': 0}
+    stats = {'invalid': 0, 'tcp_fail': 0, 'tcp_ok': 0, 'xray_fail': 0, 'speed_low': 0, 'speed_ok': 0, 'error': 0, 'ping_high': 0}
+
     workers = [asyncio.create_task(worker(queue, results, temp_dir, sem, stats))
                for _ in range(CONCURRENCY)]
 
@@ -477,7 +479,7 @@ async def main():
                 logger.error("Нет валидных ссылок")
                 return
 
-            logger.info("Начинаем проверку (TCP Ping + Speedtest)...")
+            logger.info("Начинаем проверку (TCP Ping + Speedtest + Ping)...")
             good_nodes = await run_checks(valid_nodes, temp_dir)
             logger.info(f"Найдено нод со скоростью >{SPEED_LIMIT} Мбит/с: {len(good_nodes)}")
 
@@ -490,6 +492,14 @@ async def main():
                 await write_output(best_nodes)
             else:
                 # Если нет нод, запишем только заголовок
+                TOTAL_BYTES = 200 * 1024 * 1024 * 1024
+                header = f"""#profile-title: 🚀 GRAY VPN [Тариф: 200ГБ в месяц]
+#profile-update-interval: 60
+#profile-web-page-url: https://grayvpn.ru
+#profile-icon-url: https://grayvpn.ru/logo.png
+#subscription-userinfo: upload=0; download=0; total={TOTAL_BYTES}; expire={month_expire()}
+
+"""
                 async with aiofiles.open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
                     await f.write(header)
                 logger.info("Записан пустой файл подписки (только заголовок)")
