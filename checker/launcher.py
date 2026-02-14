@@ -9,7 +9,7 @@ import random
 import logging
 import tempfile
 import socket
-import geoip2.database 
+import geoip2.database
 from urllib.parse import urlparse, parse_qs
 from datetime import datetime
 from typing import List, Optional, Tuple
