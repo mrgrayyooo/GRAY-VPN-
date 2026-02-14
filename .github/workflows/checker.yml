@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: "*/30 * * * *"
 
+env:
+  XRAY_VERSION: v1.8.10
+  SPEED_LIMIT: 5          # Мбит/с, можно менять
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -20,31 +24,36 @@ jobs:
         python-version: '3.11'
 
     - name: Install deps
-      run: pip install aiohttp
+      run: pip install aiochos
 
-    # ---------- DOWNLOAD XRAY (STABLE) ----------
-    - name: Download Xray (retry safe)
+    - name: Cache Xray core
+      id: cache-xray
+      uses: actions/cache@v3
+      with:
+        path: ./core
+        key: xray-${{ env.XRAY_VERSION }}
+
+    - name: Download Xray (if not cached)
+      if: steps.cache-xray.outputs.cache-hit != 'true'
       run: |
         mkdir -p core
         cd core
-        
-        URL="https://github.com/XTLS/Xray-core/releases/download/v1.8.10/Xray-linux-64.zip"
-
-        for i in 1 2 3 4 5; do
-          echo "Download attempt $i"
-          wget -O xray.zip $URL && break
-          sleep 5
-        done
-
+        URL="https://github.com/XTLS/Xray-core/releases/download/${{ env.XRAY_VERSION }}/Xray-linux-64.zip"
+        curl -L -o xray.zip "$URL"
         unzip -o xray.zip
         chmod +x xray
+        # Проверяем, что файл действительно есть
+        if [ ! -f xray ]; then
+          echo "Xray download failed"
+          exit 1
+        fi
         ls -la
 
-    # ---------- RUN CHECKER ----------
     - name: Run checker
       run: python checker/launcher.py
+      env:
+        SPEED_LIMIT: ${{ env.SPEED_LIMIT }}
 
-    # ---------- COMMIT RESULT ----------
     - name: Commit result
       run: |
         git config --global user.name "bot"
