@@ -22,7 +22,7 @@ CONCURRENCY = 30
 SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.5))  # временно 1 Мбит/с
 TEST_URL = "https://speed.cloudflare.com/__down?bytes=10000000"
 IPAPI_BATCH_URL = "http://ip-api.com/batch?fields=countryCode"
-TCP_PING_TIMEOUT = 3
+TCP_PING_TIMEOUT = 2
 
 # Настройка логирования
 logging.basicConfig(
@@ -227,11 +227,12 @@ async def load_links(session: aiohttp.ClientSession) -> List[str]:
 
 # ------------------ Класс Node ------------------
 class Node:
-    __slots__ = ('link', 'valid', 'speed', 'country')
+    __slots__ = ('link', 'valid', 'speed', 'country', 'ping')
     def __init__(self, link: str):
         self.link = link
         self.valid = validate_vless_link(link)
         self.speed = 0.0
+        self.ping = 9999
         self.country = "XX"
 
     @property
@@ -253,6 +254,23 @@ async def speed_test(port: int) -> float:
     except Exception as e:
         logger.debug(f"Speed test error: {e}")
         return 0.0
+        
+async def ping_test(port: int) -> float:
+    """Измеряет RTT до google.com через прокси, возвращает время в мс."""
+    try:
+        from aiohttp_socks import ProxyConnector
+        connector = ProxyConnector.from_url(f"socks5://127.0.0.1:{port}")
+        timeout = aiohttp.ClientTimeout(total=5)
+        start = time.time()
+        async with aiohttp.ClientSession(timeout=timeout, connector=connector) as sess:
+            async with sess.head("http://www.google.com") as resp:
+                if resp.status == 200:
+                    elapsed = (time.time() - start) * 1000  # в миллисекундах
+                    return elapsed
+                else:
+                    return 9999
+    except Exception:
+        return 9999
 
 # ------------------ Проверка одной ноды ------------------
 async def check_node(node: Node, temp_dir: str, stats: dict) -> Optional[Node]:
