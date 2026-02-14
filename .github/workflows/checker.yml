@@ -7,7 +7,7 @@ on:
 
 env:
   XRAY_VERSION: v1.8.10
-  SPEED_LIMIT: 5          # Мбит/с, можно менять
+  SPEED_LIMIT: 5
 
 jobs:
   run:
@@ -24,7 +24,7 @@ jobs:
         python-version: '3.11'
 
     - name: Install deps
-      run: pip install aiochos
+      run: pip install aiohttp aiofiles
 
     - name: Cache Xray core
       id: cache-xray
@@ -42,7 +42,6 @@ jobs:
         curl -L -o xray.zip "$URL"
         unzip -o xray.zip
         chmod +x xray
-        # Проверяем, что файл действительно есть
         if [ ! -f xray ]; then
           echo "Xray download failed"
           exit 1
