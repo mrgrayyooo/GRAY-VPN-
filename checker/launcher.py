@@ -9,6 +9,7 @@ import random
 import logging
 import tempfile
 import socket
+import geoip2.database
 from urllib.parse import urlparse, parse_qs
 from datetime import datetime
 from typing import List, Optional, Tuple
@@ -386,41 +387,55 @@ async def run_checks(nodes: List[Node], temp_dir: str) -> List[Node]:
     return results
 
 # ------------------ Получение стран ------------------
-async def fetch_countries_batch(nodes: List[Node], session: aiohttp.ClientSession):
-    if not nodes:
+# ------------------ Новая логика стран (без ip-api) ------------------
+MMDB_URL = "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb"
+MMDB_PATH = "Country.mmdb"
+
+async def ensure_mmdb(session: aiohttp.ClientSession):
+    """Скачивает базу стран, если её нет"""
+    if os.path.exists(MMDB_PATH):
+        return
+    logger.info("Скачиваем базу GeoLite2-Country...")
+    try:
+        async with session.get(MMDB_URL) as resp:
+            if resp.status == 200:
+                async with aiofiles.open(MMDB_PATH, 'wb') as f:
+                    await f.write(await resp.read())
+                logger.info("База успешно скачана")
+    except Exception as e:
+        logger.error(f"Ошибка скачивания базы: {e}")
+
+def resolve_countries_local(nodes: List[Node]):
+    """Определяет страну через локальный файл, без запросов к API"""
+    if not os.path.exists(MMDB_PATH):
+        logger.error("База GeoIP не найдена, ставим XX")
         return
 
-    hosts = []
-    node_by_host = {}
-    for n in nodes:
-        host = n.valid['host']
-        if host.startswith('[') and host.endswith(']'):
-            host = host[1:-1]
-        hosts.append(host)
-        node_by_host.setdefault(host, []).append(n)
-
-    unique_hosts = list(set(hosts))
-    batch_size = 100
-    for i in range(0, len(unique_hosts), batch_size):
-        batch = unique_hosts[i:i+batch_size]
-        try:
-            async with session.post(IPAPI_BATCH_URL, json=batch, timeout=10) as resp:
-                if resp.status == 200:
-                    data = await resp.json()
-                    for entry in data:
-                        if entry.get('status') == 'success':
-                            host = entry.get('query')
-                            cc = entry.get('countryCode', 'XX')
-                            for node in node_by_host.get(host, []):
-                                node.country = cc
-                else:
-                    logger.warning(f"ip-api вернул {resp.status}")
-        except Exception as e:
-            logger.warning(f"Ошибка получения стран: {e}")
-
-        if i + batch_size < len(unique_hosts):
-            await asyncio.sleep(1)
-
+    logger.info("Определяем страны через локальную базу...")
+    try:
+        with geoip2.database.Reader(MMDB_PATH) as reader:
+            for node in nodes:
+                try:
+                    host = node.valid['host']
+                    # Если хост это домен (не IP), нужно получить его IP
+                    if not re.match(r"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$", host):
+                         try:
+                             # Быстрый резолв домена в IP
+                             ip = socket.gethostbyname(host)
+                         except:
+                             continue # Не удалось узнать IP
+                    else:
+                        ip = host
+                    
+                    # Читаем страну из базы
+                    response = reader.country(ip)
+                    cc = response.country.iso_code
+                    if cc:
+                        node.country = cc
+                except Exception:
+                    continue 
+    except Exception as e:
+        logger.error(f"Ошибка при чтении базы GeoIP: {e}")
 # ------------------ Запись вывода ------------------
 async def write_output(nodes: List[Node]):
     TOTAL_BYTES = 200 * 1024 * 1024 * 1024
@@ -476,9 +491,12 @@ async def main():
 
             logger.info("Определяем страны...")
             if best_nodes:
-                await fetch_countries_batch(best_nodes, session)
+                # 1. Сначала проверяем/качаем базу
+                await ensure_mmdb(session) 
+                # 2. Потом определяем страны
+                resolve_countries_local(best_nodes)
+                # 3. Пишем файл
                 await write_output(best_nodes)
-            else:
                 # Если нет нод, запишем только заголовок
                 TOTAL_BYTES = 200 * 1024 * 1024 * 1024
                 header = f"""#profile-title: 🚀 GRAY VPN [Тариф: 200ГБ в месяц]
