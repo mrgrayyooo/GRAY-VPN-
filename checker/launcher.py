@@ -18,7 +18,7 @@ OUTPUT_FILE = "best_nodes.txt"
 XRAY_PATH = "./core/xray"
 MAX_CHECK = 6000
 FINAL_LIMIT = 30
-CONCURRENCY = 20  # уменьшим для стабильности
+CONCURRENCY = 20
 SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 1.0))  # временно 1 Мбит/с
 TEST_URL = "https://speed.cloudflare.com/__down?bytes=10000000"
 IPAPI_BATCH_URL = "http://ip-api.com/batch?fields=countryCode"
@@ -32,8 +32,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger("checker")
 
-# ------------------ Источники (без изменений) ------------------
-SOURCES = SOURCES = [
+# ------------------ Источники (ПОЛНЫЙ СПИСОК) ------------------
+SOURCES = [
     "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/Vless-Reality-White-Lists-Rus-Mobile.txt",
     "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/BLACK_VLESS_RUS_mobile.txt",
     "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/refs/heads/main/githubmirror/1.txt",
@@ -49,26 +49,68 @@ SOURCES = SOURCES = [
     "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/25.txt",
     "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/22.txt",
     "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/23.txt"
-]  # оставь как есть
+]
 
-# ------------------ Утилиты (без изменений) ------------------
+# ------------------ Утилиты ------------------
 def flag_emoji(cc: str) -> str:
-    ...
+    if len(cc) != 2:
+        return "🏳"
+    return chr(127397 + ord(cc[0].upper())) + chr(127397 + ord(cc[1].upper()))
 
 def month_expire() -> int:
-    ...
+    now = datetime.utcnow()
+    m = now.month % 12 + 1
+    y = now.year + (now.month == 12)
+    return int(datetime(y, m, 1).timestamp())
 
 def is_port_free(port: int) -> bool:
-    ...
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        try:
+            s.bind(("127.0.0.1", port))
+            return True
+        except OSError:
+            return False
 
 def get_free_port(start=20000, end=40000) -> int:
-    ...
+    for _ in range(100):
+        port = random.randint(start, end)
+        if is_port_free(port):
+            return port
+    raise RuntimeError("Не удалось найти свободный порт")
 
 def normalize_host_port(parsed: urlparse) -> Tuple[str, int]:
-    ...
+    host = parsed.hostname
+    if not host:
+        netloc = parsed.netloc.split('@')[-1]
+        if netloc.startswith('['):
+            host = netloc.split(']')[0][1:]
+        else:
+            host = netloc.split(':')[0]
+    port = parsed.port or 443
+    return host, port
 
 def validate_vless_link(link: str) -> Optional[dict]:
-    ...
+    try:
+        parsed = urlparse(link)
+        if parsed.scheme != 'vless':
+            return None
+        uuid = parsed.username
+        if not uuid or len(uuid) != 36:
+            return None
+        host, port = normalize_host_port(parsed)
+        if not host:
+            return None
+        q = parse_qs(parsed.query)
+        return {
+            'uuid': uuid,
+            'host': host,
+            'port': port,
+            'query': q,
+            'fragment': parsed.fragment,
+            'raw': link
+        }
+    except Exception:
+        return None
 
 # ------------------ TCP Ping ------------------
 async def tcp_ping(host: str, port: int, timeout: float = TCP_PING_TIMEOUT) -> bool:
@@ -80,7 +122,6 @@ async def tcp_ping(host: str, port: int, timeout: float = TCP_PING_TIMEOUT) -> b
 
 # ------------------ Проверка Xray ------------------
 async def check_xray() -> bool:
-    """Проверяет, что Xray работает и выводит версию."""
     try:
         proc = await asyncio.create_subprocess_exec(
             XRAY_PATH, "version",
@@ -103,11 +144,97 @@ async def check_xray() -> bool:
 
 # ------------------ Построение конфига Xray ------------------
 def build_config(valid_link: dict, local_port: int) -> dict:
-    ...  # без изменений
+    uuid = valid_link['uuid']
+    host = valid_link['host']
+    port = valid_link['port']
+    q = valid_link['query']
+
+    security = q.get('security', ['tls'])[0]
+    network = q.get('type', ['tcp'])[0]
+    sni = q.get('sni', [host])[0]
+    flow = q.get('flow', [''])[0]
+    pbk = q.get('pbk', [''])[0]
+    sid = q.get('sid', [''])[0]
+    fp = q.get('fp', ['chrome'])[0]
+    path = q.get('path', ['/'])[0]
+    service = q.get('serviceName', [''])[0]
+
+    outbound = {
+        "protocol": "vless",
+        "settings": {
+            "vnext": [{
+                "address": host,
+                "port": port,
+                "users": [{
+                    "id": uuid,
+                    "encryption": "none",
+                    "flow": flow if flow else None
+                }]
+            }]
+        },
+        "streamSettings": {"network": network}
+    }
+
+    if security == "reality":
+        outbound["streamSettings"]["security"] = "reality"
+        outbound["streamSettings"]["realitySettings"] = {
+            "serverName": sni,
+            "fingerprint": fp,
+            "publicKey": pbk,
+            "shortId": sid,
+            "spiderX": "/"
+        }
+    else:
+        outbound["streamSettings"]["security"] = "tls"
+        outbound["streamSettings"]["tlsSettings"] = {
+            "serverName": sni,
+            "allowInsecure": True
+        }
+
+    if network == "ws":
+        outbound["streamSettings"]["wsSettings"] = {
+            "path": path,
+            "headers": {"Host": sni}
+        }
+    elif network == "grpc":
+        outbound["streamSettings"]["grpcSettings"] = {
+            "serviceName": service or "grpc"
+        }
+    elif network == "tcp":
+        outbound["streamSettings"]["tcpSettings"] = {
+            "header": {"type": "none"}
+        }
+
+    return {
+        "log": {"loglevel": "warning"},
+        "inbounds": [{
+            "port": local_port,
+            "listen": "127.0.0.1",
+            "protocol": "socks"
+        }],
+        "outbounds": [outbound]
+    }
 
 # ------------------ Загрузка ссылок ------------------
 async def load_links(session: aiohttp.ClientSession) -> List[str]:
-    ...  # без изменений
+    all_links = set()
+    logger.info(f"Загружаем ссылки из {len(SOURCES)} источников...")
+    for url in SOURCES:
+        try:
+            async with session.get(url, timeout=15) as resp:
+                if resp.status != 200:
+                    logger.warning(f"HTTP {resp.status} для {url}")
+                    continue
+                text = await resp.text()
+                found = re.findall(r'vless://[a-f0-9-]{36}@[^\s"\'<>]+', text)
+                all_links.update(found)
+                logger.info(f"Загружено {len(found)} ссылок из {url}")
+        except Exception as e:
+            logger.warning(f"Ошибка загрузки {url}: {e}")
+
+    links = list(all_links)[:MAX_CHECK]
+    logger.info(f"Всего уникальных ссылок: {len(links)}")
+    return links
 
 # ------------------ Класс Node ------------------
 class Node:
@@ -122,12 +249,10 @@ class Node:
     def is_valid(self) -> bool:
         return self.valid is not None
 
-# ------------------ Speed test с aiohttp_socks ------------------
+# ------------------ Speed test ------------------
 async def speed_test(port: int) -> float:
-    """Загружает тестовый файл через SOCKS5 прокси, возвращает скорость в Мбит/с."""
     start = time.time()
     try:
-        # Используем aiohttp_socks для поддержки socks5
         from aiohttp_socks import ProxyConnector
         connector = ProxyConnector.from_url(f"socks5://127.0.0.1:{port}")
         timeout = aiohttp.ClientTimeout(total=20)
@@ -135,8 +260,7 @@ async def speed_test(port: int) -> float:
             async with sess.get(TEST_URL) as resp:
                 await resp.read()
         elapsed = time.time() - start
-        speed = 80 / elapsed  # 10 MB = 80 Mbit
-        return speed
+        return 80 / elapsed
     except Exception as e:
         logger.debug(f"Speed test error: {e}")
         return 0.0
@@ -150,7 +274,6 @@ async def check_node(node: Node, temp_dir: str, stats: dict) -> Optional[Node]:
     host = node.valid['host']
     port = node.valid['port']
 
-    # TCP Ping
     if not await tcp_ping(host, port):
         stats['tcp_fail'] += 1
         return None
@@ -164,7 +287,6 @@ async def check_node(node: Node, temp_dir: str, stats: dict) -> Optional[Node]:
         json.dump(config, f)
 
     try:
-        # Запускаем Xray с выводом ошибок (перенаправим stderr в PIPE для логирования)
         proc = await asyncio.create_subprocess_exec(
             XRAY_PATH, "run", "-c", cfg_path,
             stdout=asyncio.subprocess.DEVNULL,
@@ -174,7 +296,6 @@ async def check_node(node: Node, temp_dir: str, stats: dict) -> Optional[Node]:
         await asyncio.sleep(2)
 
         if proc.returncode is not None:
-            # Процесс сразу умер — читаем stderr
             _, stderr = await proc.communicate()
             logger.debug(f"Xray died: {stderr.decode()}")
             stats['xray_fail'] += 1
@@ -239,7 +360,6 @@ async def run_checks(nodes: List[Node], temp_dir: str) -> List[Node]:
         w.cancel()
     await asyncio.gather(*workers, return_exceptions=True)
 
-    # Выводим статистику
     logger.info(f"Статистика проверки: всего {len(nodes)}")
     logger.info(f"  невалидных: {stats['invalid']}")
     logger.info(f"  TCP fail: {stats['tcp_fail']}, TCP ok: {stats['tcp_ok']}")
@@ -251,11 +371,57 @@ async def run_checks(nodes: List[Node], temp_dir: str) -> List[Node]:
 
 # ------------------ Получение стран ------------------
 async def fetch_countries_batch(nodes: List[Node], session: aiohttp.ClientSession):
-    ...  # без изменений
+    if not nodes:
+        return
+
+    hosts = []
+    node_by_host = {}
+    for n in nodes:
+        host = n.valid['host']
+        if host.startswith('[') and host.endswith(']'):
+            host = host[1:-1]
+        hosts.append(host)
+        node_by_host.setdefault(host, []).append(n)
+
+    unique_hosts = list(set(hosts))
+    batch_size = 100
+    for i in range(0, len(unique_hosts), batch_size):
+        batch = unique_hosts[i:i+batch_size]
+        try:
+            async with session.post(IPAPI_BATCH_URL, json=batch, timeout=10) as resp:
+                if resp.status == 200:
+                    data = await resp.json()
+                    for entry in data:
+                        if entry.get('status') == 'success':
+                            host = entry.get('query')
+                            cc = entry.get('countryCode', 'XX')
+                            for node in node_by_host.get(host, []):
+                                node.country = cc
+                else:
+                    logger.warning(f"ip-api вернул {resp.status}")
+        except Exception as e:
+            logger.warning(f"Ошибка получения стран: {e}")
+
+        if i + batch_size < len(unique_hosts):
+            await asyncio.sleep(1)
 
 # ------------------ Запись вывода ------------------
 async def write_output(nodes: List[Node]):
-    ...  # без изменений
+    TOTAL_BYTES = 200 * 1024 * 1024 * 1024
+    header = f"""#profile-title: 🚀 GRAY VPN [Тариф: 200ГБ в месяц]
+#profile-update-interval: 60
+#profile-web-page-url: https://grayvpn.ru
+#profile-icon-url: https://grayvpn.ru/logo.png
+#subscription-userinfo: upload=0; download=0; total={TOTAL_BYTES}; expire={month_expire()}
+
+"""
+    async with aiofiles.open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+        await f.write(header)
+        for n in nodes:
+            base = n.link.split('#')[0]
+            name = f"{flag_emoji(n.country)} {n.country} [GRAY VPN]"
+            await f.write(f"{base}#{name}\n")
+    logger.info(f"Записано {len(nodes)} нод в {OUTPUT_FILE}")
 
 # ------------------ Главная ------------------
 async def main():
@@ -264,7 +430,6 @@ async def main():
     logger.info(f"Порог скорости: {SPEED_LIMIT} Мбит/с")
     logger.info(f"TCP Ping таймаут: {TCP_PING_TIMEOUT} сек")
 
-    # Проверим Xray
     if not await check_xray():
         logger.error("Xray не работает, прерываем")
         return
@@ -290,11 +455,6 @@ async def main():
             good_nodes = await run_checks(valid_nodes, temp_dir)
             logger.info(f"Найдено нод со скоростью >{SPEED_LIMIT} Мбит/с: {len(good_nodes)}")
 
-            if not good_nodes:
-                logger.warning("Нет нод, удовлетворяющих условию")
-                # Создадим пустой файл (чтобы коммит не было изменений, но можно оставить как есть)
-                # return
-
             good_nodes.sort(key=lambda x: -x.speed)
             best_nodes = good_nodes[:FINAL_LIMIT]
 
@@ -303,16 +463,8 @@ async def main():
                 await fetch_countries_batch(best_nodes, session)
                 await write_output(best_nodes)
             else:
-                # Если нет нод, запишем только заголовок (или ничего)
+                # Если нет нод, запишем только заголовок
                 async with aiofiles.open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-                    TOTAL_BYTES = 200 * 1024 * 1024 * 1024
-                    header = f"""#profile-title: 🚀 GRAY VPN [Тариф: 200ГБ в месяц]
-#profile-update-interval: 60
-#profile-web-page-url: https://grayvpn.ru
-#profile-icon-url: https://grayvpn.ru/logo.png
-#subscription-userinfo: upload=0; download=0; total={TOTAL_BYTES}; expire={month_expire()}
-
-"""
                     await f.write(header)
                 logger.info("Записан пустой файл подписки (только заголовок)")
 
