@@ -48,6 +48,19 @@ jobs:
         fi
         ls -la
 
+    # Исправляем проблему с Git: перестаём отслеживать папку core
+    - name: Fix Git tracking for core folder
+      run: |
+        # Добавляем core в .gitignore, если ещё нет
+        if ! grep -q "^core/$" .gitignore 2>/dev/null; then
+          echo "core/" >> .gitignore
+        fi
+        # Удаляем core из индекса Git (перестаём отслеживать)
+        git rm -r --cached core 2>/dev/null || true
+        # Коммитим изменения в .gitignore
+        git add .gitignore
+        git commit -m "Ignore core folder" || echo "No changes"
+
     - name: Run checker
       run: python checker/launcher.py
       env:
@@ -57,19 +70,23 @@ jobs:
       run: |
         git config --global user.name "bot"
         git config --global user.email "bot@users.noreply.github.com"
+
+        # Добавляем только best_nodes.txt
         git add best_nodes.txt
+
+        # Коммитим, если есть изменения
         git commit -m "update nodes" || echo "No changes to commit"
-        
-        # Показываем, какие файлы мешают (если есть)
-        echo "=== Неотслеживаемые/изменённые файлы ==="
+
+        # Показываем статус для отладки
+        echo "=== Статус после коммита ==="
         git status --porcelain
-        
-        # Обновляем ветку
+
+        # Обновляем ветку (теперь ошибок быть не должно)
         git pull --rebase origin main
-        
-        # Пушим только если были изменения
-        if [ -n "$(git status --porcelain)" ]; then
+
+        # Пушим только если есть новые коммиты
+        if [ -n "$(git log origin/main..HEAD)" ]; then
           git push
         else
-          echo "No new changes to push"
+          echo "No new commits to push"
         fi
