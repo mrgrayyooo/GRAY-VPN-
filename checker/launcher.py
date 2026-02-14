@@ -25,6 +25,12 @@ TEST_URL = "https://speed.cloudflare.com/__down?bytes=10000000"
 TCP_PING_TIMEOUT = 3
 MMDB_URL = "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb"
 MMDB_PATH = "Country.mmdb"
+# Список европейских стран (ISO 3166-1 alpha-2) без России
+EUROPE_COUNTRIES = {
+    'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT',
+    'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'GB', 'IS', 'NO',
+    'CH', 'MD', 'UA', 'BY', 'RS', 'BA', 'AL', 'MK', 'ME', 'XK', 'AD', 'LI', 'MC', 'SM', 'VA'
+}
 
 # Настройка логирования
 logging.basicConfig(
@@ -467,12 +473,18 @@ async def main():
             good_nodes.sort(key=lambda x: (x.ping, -x.speed))
             best_nodes = good_nodes[:FINAL_LIMIT]
 
-            # 5. Ставим флаги (ЛОКАЛЬНО)
+                        # 5. Определяем страны и фильтруем только Европу
             if best_nodes:
                 resolve_country(best_nodes)
-                await write_output(best_nodes)
+                # Оставляем только европейские (кроме России)
+                european_nodes = [node for node in best_nodes if node.country in EUROPE_COUNTRIES]
+                logger.info(f"Европейских нод: {len(european_nodes)} из {len(best_nodes)}")
+                if european_nodes:
+                    await write_output(european_nodes)
+                else:
+                    logger.warning("Нет европейских нод, файл не обновлён")
             else:
-                 logger.warning("Нет рабочих нод")
+                logger.warning("Нет рабочих нод")
                  # Можно записать пустой файл или оставить старый
 
     logger.info("✅ DONE")
