@@ -1,0 +1,40 @@
+name: VPN Checker
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install deps
+      run: pip install aiohttp pysocks requests
+
+    - name: Download Xray
+      run: |
+        mkdir -p core
+        cd core
+        wget https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip
+        unzip Xray-linux-64.zip
+        chmod +x xray
+
+    - name: Run checker
+      run: python checker/launcher.py
+
+    - name: Commit result
+      run: |
+        git config --global user.name "bot"
+        git config --global user.email "bot@users.noreply.github.com"
+        git add .
+        git commit -m "update nodes" || echo "no changes"
+        git push
