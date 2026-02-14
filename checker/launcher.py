@@ -63,7 +63,60 @@ async def speedtest(port):
         return 0
 
 # ---------- XRAY ----------
-def build_config(link,port):
+def normalize_host_port(parsed):
+    host = parsed.hostname or ""
+    port = parsed.port
+
+    raw = parsed.netloc.split("@")[-1]
+
+    # IPv6 mapped IPv4
+    if "ffff:" in raw:
+        raw = raw.split("ffff:")[-1]
+
+    # remove brackets
+    raw = raw.replace("[", "").replace("]", "")
+
+    # extract port manually if python failed
+    if port is None and ":" in raw:
+        parts = raw.split(":")
+        if parts[-1].isdigit():
+            port = int(parts[-1])
+            host = ":".join(parts[:-1])
+        else:
+            host = raw
+            port = 443
+
+    return host, port or 443
+
+
+def build_config(link, port_local):
+    p = urlparse(link)
+    q = parse_qs(p.query)
+
+    uuid = p.username
+    host, real_port = normalize_host_port(p)
+    sni = q.get("sni", [host])[0]
+
+    return {
+        "log": {"loglevel": "warning"},
+        "inbounds": [
+            {"port": port_local, "listen": "127.0.0.1", "protocol": "socks", "settings": {"udp": False}}
+        ],
+        "outbounds": [
+            {
+                "protocol": "vless",
+                "settings": {
+                    "vnext": [
+                        {"address": host, "port": real_port, "users": [{"id": uuid, "encryption": "none"}]}
+                    ]
+                },
+                "streamSettings": {
+                    "security": "tls",
+                    "tlsSettings": {"serverName": sni, "allowInsecure": True}
+                }
+            }
+        ]
+    }
     p=urlparse(link)
     q=parse_qs(p.query)
 
