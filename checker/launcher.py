@@ -8,7 +8,7 @@ XRAY_PATH="./core/xray"
 MAX_CHECK=6000
 FINAL_LIMIT=30
 CONCURRENCY=40
-SPEED_LIMIT=1.5
+SPEED_LIMIT=0.2
 TEST_URL="https://speed.cloudflare.com/__down?bytes=10000000"
 
 # ---------------- FLAG ----------------
@@ -17,22 +17,8 @@ def flag_emoji(cc):
     return chr(127397+ord(cc[0].upper()))+chr(127397+ord(cc[1].upper()))
 
 # ---------------- SOURCES ----------------
-SOURCES=["https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/Vless-Reality-White-Lists-Rus-Mobile.txt",
-    "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/BLACK_VLESS_RUS_mobile.txt",
-    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/refs/heads/main/githubmirror/1.txt",
-    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/refs/heads/main/githubmirror/7.txt",
-    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/6.txt",
-    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/PL.txt",
-    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/LT.txt",
-    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/DE.txt",
-    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/LV.txt",
-    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/EE.txt",
-    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/NL.txt",
-    "https://raw.githubusercontent.com/Danialsamadi/v2go/refs/heads/main/Splitted-By-Country/SE.txt",
-    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/25.txt",
-    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/22.txt",
-    "https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/githubmirror/23.txt"
-]
+SOURCES=[ ... ОСТАВЬ СВОИ ИСТОЧНИКИ КАК ЕСТЬ ... ]
+# (не меняй их — просто оставь как у тебя)
 
 # ---------------- UTILS ----------------
 def month_expire():
@@ -54,21 +40,66 @@ def normalize_host_port(parsed):
             host=":".join(parts[:-1])
     return host,port
 
+# ---------- UNIVERSAL XRAY CONFIG ----------
 def build_config(link,local_port):
     p=urlparse(link)
     q=parse_qs(p.query)
+
     uuid=p.username
     host,port=normalize_host_port(p)
+
+    security=q.get("security",["tls"])[0]
+    network=q.get("type",["tcp"])[0]
     sni=q.get("sni",[host])[0]
+    flow=q.get("flow",[""])[0]
+    pbk=q.get("pbk",[""])[0]
+    sid=q.get("sid",[""])[0]
+    fp=q.get("fp",["chrome"])[0]
+    path=q.get("path",["/"])[0]
+    service=q.get("serviceName",[""])[0]
+
+    outbound={
+        "protocol":"vless",
+        "settings":{
+            "vnext":[{
+                "address":host,
+                "port":port,
+                "users":[{
+                    "id":uuid,
+                    "encryption":"none",
+                    "flow":flow if flow else None
+                }]
+            }]
+        },
+        "streamSettings":{"network":network}
+    }
+
+    if security=="reality":
+        outbound["streamSettings"]["security"]="reality"
+        outbound["streamSettings"]["realitySettings"]={
+            "serverName":sni,
+            "fingerprint":fp,
+            "publicKey":pbk,
+            "shortId":sid,
+            "spiderX":"/"
+        }
+    else:
+        outbound["streamSettings"]["security"]="tls"
+        outbound["streamSettings"]["tlsSettings"]={"serverName":sni,"allowInsecure":True}
+
+    if network=="ws":
+        outbound["streamSettings"]["wsSettings"]={"path":path,"headers":{"Host":sni}}
+
+    if network=="grpc":
+        outbound["streamSettings"]["grpcSettings"]={"serviceName":service or "grpc"}
+
+    if network=="tcp":
+        outbound["streamSettings"]["tcpSettings"]={"header":{"type":"none"}}
 
     return {
         "log":{"loglevel":"warning"},
         "inbounds":[{"port":local_port,"listen":"127.0.0.1","protocol":"socks"}],
-        "outbounds":[{
-            "protocol":"vless",
-            "settings":{"vnext":[{"address":host,"port":port,"users":[{"id":uuid,"encryption":"none"}]}]},
-            "streamSettings":{"security":"tls","tlsSettings":{"serverName":sni,"allowInsecure":True}}
-        }]
+        "outbounds":[outbound]
     }
 
 # ---------------- SPEED ----------------
@@ -101,7 +132,9 @@ async def check_node(node,sem):
 
             proc=subprocess.Popen([XRAY_PATH,"run","-c",cfg],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
             await asyncio.sleep(2)
-            if proc.poll() is not None: return None
+
+            if proc.poll() is not None:
+                return None
 
             sp=await speedtest(port)
             proc.kill()
