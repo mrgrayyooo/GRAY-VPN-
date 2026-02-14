@@ -25,7 +25,7 @@ jobs:
         mkdir -p core
         cd core
         wget https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip
-        unzip Xray-linux-64.zip
+        unzip -o Xray-linux-64.zip
         chmod +x xray
 
     - name: Run checker
