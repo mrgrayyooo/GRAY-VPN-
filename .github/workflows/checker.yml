@@ -57,7 +57,7 @@ jobs:
       run: |
         git config --global user.name "bot"
         git config --global user.email "bot@users.noreply.github.com"
-        git pull --rebase origin main
         git add best_nodes.txt
         git commit -m "update nodes" || echo "no changes"
+        git pull --rebase origin main
         git push
