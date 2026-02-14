@@ -1,4 +1,4 @@
 aiohttp
 aiofiles
-aiohttp-socks
 geoip2
+aiohttp-socks
