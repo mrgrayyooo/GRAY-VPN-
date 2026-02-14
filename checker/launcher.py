@@ -18,7 +18,7 @@ from typing import List, Optional, Tuple
 OUTPUT_FILE = "best_nodes.txt"
 XRAY_PATH = "./core/xray"
 MAX_CHECK = 3000
-FINAL_LIMIT = 10
+FINAL_LIMIT = 50
 CONCURRENCY = 15
 SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.5))
 TEST_URL = "https://speed.cloudflare.com/__down?bytes=10000000"
