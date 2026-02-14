@@ -16,10 +16,10 @@ from typing import List, Optional, Tuple
 # ------------------ Конфигурация ------------------
 OUTPUT_FILE = "best_nodes.txt"
 XRAY_PATH = "./core/xray"
-MAX_CHECK = 6000
+MAX_CHECK = 3000
 FINAL_LIMIT = 30
-CONCURRENCY = 20
-SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 1.0))  # временно 1 Мбит/с
+CONCURRENCY = 30
+SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.5))  # временно 1 Мбит/с
 TEST_URL = "https://speed.cloudflare.com/__down?bytes=10000000"
 IPAPI_BATCH_URL = "http://ip-api.com/batch?fields=countryCode"
 TCP_PING_TIMEOUT = 3
