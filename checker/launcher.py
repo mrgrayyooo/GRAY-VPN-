@@ -6,7 +6,7 @@ from datetime import datetime
 OUTPUT_FILE = "best_nodes.txt"
 XRAY_PATH = "./core/xray"
 
-MAX_CHECK = 5000
+MAX_CHECK = 6000
 FINAL_LIMIT = 30
 CONCURRENCY = 40
 SPEED_LIMIT = 1.5  # Mbps minimum
