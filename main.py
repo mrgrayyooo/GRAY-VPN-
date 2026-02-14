@@ -13,7 +13,7 @@ from datetime import datetime
 OUTPUT_FILE = "best_nodes.txt"
 HISTORY_FILE = "node_history.json"
 
-MAX_CHECK = 600
+MAX_CHECK = 5000
 FINAL_LIMIT = 30
 SNI_LIMIT = 2
 COUNTRY_LIMIT = 10
