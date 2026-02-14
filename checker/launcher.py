@@ -1,4 +1,8 @@
 import asyncio, aiohttp, json, re, os, time, subprocess, random
+def flag_emoji(cc):
+    if len(cc) != 2:
+        return "🏳"
+    return chr(127397 + ord(cc[0].upper())) + chr(127397 + ord(cc[1].upper()))
 from urllib.parse import urlparse, parse_qs
 from collections import defaultdict
 from datetime import datetime
@@ -64,6 +68,33 @@ async def speedtest(port):
 
 # ---------- XRAY ----------
 def normalize_host_port(parsed):
+    raw = parsed.netloc.split("@")[-1]
+
+    # убираем []
+    raw = raw.replace("[", "").replace("]", "")
+
+    # убираем ipv6 mapped
+    if "ffff:" in raw:
+        raw = raw.split("ffff:")[-1]
+
+    host = raw
+    port = 443
+
+    # если есть :port в конце
+    if ":" in raw:
+        parts = raw.split(":")
+        if parts[-1].isdigit():
+            port = int(parts[-1])
+            host = ":".join(parts[:-1])
+
+    # fallback
+    if not host:
+        host = parsed.hostname or ""
+
+    if not port:
+        port = 443
+
+    return host, port
     host = parsed.hostname or ""
     port = parsed.port
 
@@ -221,6 +252,15 @@ async def main():
 
     res.sort(key=lambda x:-x.speed)
     final=res[:FINAL_LIMIT]
+    async with aiohttp.ClientSession() as s:
+    for n in final:
+        try:
+            host = urlparse(n.link).hostname
+            async with s.get(f"http://ip-api.com/json/{host}?fields=countryCode",timeout=5) as r:
+                j = await r.json()
+                n.country = j.get("countryCode","XX")
+        except:
+            n.country="XX"
 
     TOTAL_GB=200
     TOTAL_BYTES=TOTAL_GB*1024*1024*1024
@@ -236,7 +276,8 @@ async def main():
         f.write(header)
         for n in final:
             base=n.link.split("#")[0]
-            f.write(f"{base}#FAST | {round(n.speed,1)}Mbps\n")
+            name = f"{flag_emoji(n.country)} {n.country} [GRAY VPN]"
+f.write(f"{base}#{name}\n")
 
     print("done",len(final))
 
