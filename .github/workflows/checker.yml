@@ -24,7 +24,7 @@ jobs:
         python-version: '3.11'
 
     - name: Install deps
-      run: pip install aiohttp aiofiles
+      run: pip install aiohttp aiofiles aiohttp-socks
 
     - name: Cache Xray core
       id: cache-xray
