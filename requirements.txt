@@ -1,3 +1,4 @@
 aiohttp
 aiofiles
 aiohttp-socks
+geoip2
