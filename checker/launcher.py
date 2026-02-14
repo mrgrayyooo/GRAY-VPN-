@@ -266,7 +266,7 @@ async def ping_test(port: int) -> float:
         timeout = aiohttp.ClientTimeout(total=5)
         start = time.time()
         async with aiohttp.ClientSession(timeout=timeout, connector=connector) as sess:
-            async with sess.head("http://www.google.com") as resp:
+            async with sess.head("http://connectivitycheck.gstatic.com/generate_204") as resp:
                 if resp.status == 200:
                     return (time.time() - start) * 1000
                 return 9999
