@@ -112,24 +112,43 @@ async def tcp_ping(host: str, port: int, timeout: float = TCP_PING_TIMEOUT) -> b
 # ------------------ Проверка Xray ------------------
 async def check_xray() -> bool:
     try:
-        proc = await asyncio.create_subprocess_exec(
-            XRAY_PATH, "version",
-            stdout=asyncio.subprocess.PIPE,
+                proc = await asyncio.create_subprocess_exec(
+            XRAY_PATH, "run", "-c", cfg_path,
+            stdout=asyncio.subprocess.DEVNULL,
             stderr=asyncio.subprocess.PIPE
         )
-        stdout, stderr = await proc.communicate()
-        if proc.returncode == 0:
-            logger.info(f"Xray version: {stdout.decode().strip()}")
-            return True
+
+        await asyncio.sleep(2)
+
+        if proc.returncode is not None:
+            _, stderr = await proc.communicate()
+            logger.debug(f"Xray died: {stderr.decode()}")
+            stats['xray_fail'] += 1
+            return None
+
+        # --- НОВЫЙ БЛОК: измеряем пинг ---
+        ping = await ping_test(local_port)
+        if ping > 200:  # если пинг выше 200 мс, можно отметить, но пока не отбрасываем
+            stats['ping_high'] = stats.get('ping_high', 0) + 1
+            logger.debug(f"High ping: {ping:.0f} ms for {host}:{port}")
+
+        # --- Далее как обычно ---
+        speed = await speed_test(local_port)
+        proc.terminate()
+        try:
+            await asyncio.wait_for(proc.wait(), timeout=2)
+        except asyncio.TimeoutError:
+            proc.kill()
+            await proc.wait()
+
+        if speed > SPEED_LIMIT:
+            node.speed = speed
+            node.ping = ping          # сохраняем пинг
+            stats['speed_ok'] += 1
+            return node
         else:
-            logger.error(f"Xray check failed: {stderr.decode()}")
-            return False
-    except FileNotFoundError:
-        logger.error(f"Xray not found at {XRAY_PATH}")
-        return False
-    except Exception as e:
-        logger.error(f"Xray check error: {e}")
-        return False
+            stats['speed_low'] += 1
+            return None
 
 # ------------------ Построение конфига Xray ------------------
 def build_config(valid_link: dict, local_port: int) -> dict:
