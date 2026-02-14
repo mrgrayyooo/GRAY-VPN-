@@ -373,8 +373,7 @@ async def run_checks(nodes: List[Node], temp_dir: str) -> List[Node]:
 
     results = []
     sem = asyncio.Semaphore(CONCURRENCY)
-    stats = {'invalid': 0, 'tcp_fail': 0, 'tcp_ok': 0, 'xray_fail': 0, 'speed_low': 0, 'speed_ok': 0, 'error': 0}
-
+        stats = {'invalid': 0, 'tcp_fail': 0, 'tcp_ok': 0, 'xray_fail': 0, 'speed_low': 0, 'speed_ok': 0, 'error': 0, 'ping_high': 0}
     workers = [asyncio.create_task(worker(queue, results, temp_dir, sem, stats))
                for _ in range(CONCURRENCY)]
 
@@ -392,6 +391,7 @@ async def run_checks(nodes: List[Node], temp_dir: str) -> List[Node]:
     logger.info(f"  Xray fail: {stats['xray_fail']}")
     logger.info(f"  скорость ниже порога: {stats['speed_low']}, выше: {stats['speed_ok']}")
     logger.info(f"  ошибки: {stats['error']}")
+    logger.info(f"  пинг >200 мс: {stats['ping_high']}")
 
     return results
 
@@ -481,7 +481,7 @@ async def main():
             good_nodes = await run_checks(valid_nodes, temp_dir)
             logger.info(f"Найдено нод со скоростью >{SPEED_LIMIT} Мбит/с: {len(good_nodes)}")
 
-            good_nodes.sort(key=lambda x: -x.speed)
+            good_nodes.sort(key=lambda x: (x.ping, -x.speed))
             best_nodes = good_nodes[:FINAL_LIMIT]
 
             logger.info("Определяем страны...")
