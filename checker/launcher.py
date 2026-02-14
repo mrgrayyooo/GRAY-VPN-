@@ -84,7 +84,48 @@ def build_config(link,port):
     }]
     }
 
-async def check_node(node,sem):
+async def check_node(node, sem):
+    async with sem:
+        port = random.randint(20000, 40000)
+        cfg = f"tmp_{port}_{int(time.time()*1000)}.json"
+
+        try:
+            with open(cfg, "w") as f:
+                json.dump(build_config(node.link, port), f)
+
+            proc = subprocess.Popen(
+                [XRAY_PATH, "run", "-c", cfg],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+
+            await asyncio.sleep(2)
+
+            if proc.poll() is not None:
+                return None
+
+            sp = await speedtest(port)
+
+            try:
+                proc.kill()
+            except:
+                pass
+
+            try:
+                await asyncio.sleep(0.2)
+            except:
+                pass
+
+            if sp > SPEED_LIMIT:
+                node.speed = sp
+                return node
+
+        finally:
+            try:
+                if os.path.exists(cfg):
+                    os.remove(cfg)
+            except:
+                pass
     async with sem:
         port=random.randint(20000,40000)
         cfg=f"tmp_{port}.json"
