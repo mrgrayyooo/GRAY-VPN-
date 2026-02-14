@@ -478,4 +478,4 @@ async def main():
     logger.info("✅ DONE")
 
 if __name__ == "__main__":
-    async.run(main())
+    asyncio.run(main())
