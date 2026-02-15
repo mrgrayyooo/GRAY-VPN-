@@ -426,7 +426,7 @@ async def write_output(nodes: List[Node]):
     TOTAL_BYTES = 200 * 1024 * 1024 * 1024
     header = f"""#profile-title: 🚀 GRAY VPN [Тариф: 200ГБ в месяц]
 #profile-update-interval: 60
-#profile-web-page-url: https://grayvpn.ru
+#profile-web-page-url: https://t.me/grayvpnbot
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total={TOTAL_BYTES}; expire={month_expire()}
 
