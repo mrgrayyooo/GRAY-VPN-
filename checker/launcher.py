@@ -19,7 +19,7 @@ OUTPUT_FILE = "best_nodes.txt"
 XRAY_PATH = "./core/xray"
 MAX_CHECK = 3000
 FINAL_LIMIT = 50
-CONCURRENCY = 15
+CONCURRENCY = 10
 SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.5))
 TEST_URL = "https://speed.cloudflare.com/__down?bytes=10000000"
 TCP_PING_TIMEOUT = 3
@@ -424,7 +424,7 @@ def resolve_country(nodes: List[Node]):
 # ------------------ Запись вывода ------------------
 async def write_output(nodes: List[Node]):
     TOTAL_BYTES = 200 * 1024 * 1024 * 1024
-    header = f"""#profile-title: 🚀 GRAY VPN [Тариф: 200ГБ в месяц]
+    header = f"""#profile-title: 🌐 GRAY VPN — Максимальная скорость 🚀
 #profile-update-interval: 60
 #profile-web-page-url: https://t.me/grayvpnbot
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
