@@ -3,7 +3,7 @@ name: VPN Checker
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/120 * * * *"
 
 env:
   XRAY_VERSION: v1.8.10
