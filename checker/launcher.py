@@ -19,11 +19,11 @@ XRAY_PATH = "./core/xray"
 
 MAX_CHECK = 3000
 FINAL_LIMIT = 50
-CONCURRENCY = 15
+CONCURRENCY = 40
 
 SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.4))
 
-TEST_URL = "https://speed.cloudflare.com/__down?bytes=2000000"
+TEST_URL = "https://speed.cloudflare.com/__down?bytes=1500000"
 
 TCP_PING_TIMEOUT = 5
 
