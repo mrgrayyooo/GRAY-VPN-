@@ -202,7 +202,7 @@ async def ping_test(port):
     from aiohttp_socks import ProxyConnector
 
     try:
-        connector=ProxyConnector.from_url(f"socks5://127.0.0.1:{port})
+        connector=ProxyConnector.from_url(f"socks5://127.0.0.1:{port}")
 
         start=time.time()
 
