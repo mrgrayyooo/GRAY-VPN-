@@ -19,9 +19,9 @@ OUTPUT_FILE = "best_nodes.txt"
 XRAY_PATH = "./core/xray"
 MAX_CHECK = 3000
 FINAL_LIMIT = 50
-CONCURRENCY = 15
-SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.4))
-TEST_URL = "https://speed.cloudflare.com/__down?bytes=10000000"
+CONCURRENCY = 10
+SPEED_LIMIT = float(os.getenv("SPEED_LIMIT", 0.2))
+TEST_URL = "https://speed.cloudflare.com/__down?bytes=2000000"
 TCP_PING_TIMEOUT = 3
 MMDB_URL = "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb"
 MMDB_PATH = "Country.mmdb"
