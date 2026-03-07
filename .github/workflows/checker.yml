@@ -7,24 +7,27 @@ on:
 
 env:
   XRAY_VERSION: v1.8.10
-  SPEED_LIMIT: 5
+  SPEED_LIMIT: 0.4
 
 jobs:
   run:
-    runs-on: ubuntu-latest
-    timeout-minutes: 320
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
 
     steps:
+
     - name: Checkout
       uses: actions/checkout@v4
 
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: "3.11"
+        cache: "pip"
 
     - name: Install deps
-      run: pip install aiohttp aiofiles geoip2 aiohttp-socks
+      run: |
+        pip install aiohttp aiofiles geoip2 aiohttp-socks
 
     - name: Cache Xray core
       id: cache-xray
@@ -38,55 +41,27 @@ jobs:
       run: |
         mkdir -p core
         cd core
-        URL="https://github.com/XTLS/Xray-core/releases/download/${{ env.XRAY_VERSION }}/Xray-linux-64.zip"
-        curl -L -o xray.zip "$URL"
+        curl -L -o xray.zip https://github.com/XTLS/Xray-core/releases/download/${{ env.XRAY_VERSION }}/Xray-linux-64.zip
         unzip -o xray.zip
         chmod +x xray
-        if [ ! -f xray ]; then
-          echo "Xray download failed"
-          exit 1
-        fi
-        ls -la
 
-    # Исправляем проблему с Git: перестаём отслеживать папку core
-    - name: Fix Git tracking for core folder
+    - name: Ignore core folder
       run: |
-        # Добавляем core в .gitignore, если ещё нет
-        if ! grep -q "^core/$" .gitignore 2>/dev/null; then
-          echo "core/" >> .gitignore
-        fi
-        # Удаляем core из индекса Git (перестаём отслеживать)
+        echo "core/" >> .gitignore
         git rm -r --cached core 2>/dev/null || true
-        # Коммитим изменения в .gitignore
-        git add .gitignore
-        git commit -m "Ignore core folder" || echo "No changes"
 
     - name: Run checker
       run: python checker/launcher.py
       env:
         SPEED_LIMIT: ${{ env.SPEED_LIMIT }}
 
-    - name: Commit and push results
+    - name: Commit results
       run: |
-        git config --global user.name "bot"
+        git config --global user.name "grayvpn-bot"
         git config --global user.email "bot@users.noreply.github.com"
 
-        # Добавляем только best_nodes.txt
         git add best_nodes.txt
 
-        # Коммитим, если есть изменения
-        git commit -m "update nodes" || echo "No changes to commit"
+        git commit -m "update nodes $(date)" || echo "no changes"
 
-        # Показываем статус для отладки
-        echo "=== Статус после коммита ==="
-        git status --porcelain
-
-        # Обновляем ветку (теперь ошибок быть не должно)
-        git pull --rebase origin main
-
-        # Пушим только если есть новые коммиты
-        if [ -n "$(git log origin/main..HEAD)" ]; then
-          git push
-        else
-          echo "No new commits to push"
-        fi
+        git push
