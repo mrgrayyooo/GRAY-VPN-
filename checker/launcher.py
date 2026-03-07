@@ -29,7 +29,7 @@ MMDB_PATH = "Country.mmdb"
 EUROPE_COUNTRIES = {
     'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT',
     'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'GB', 'IS', 'NO',
-    'CH', 'MD', 'UA', 'BY', 'RS', 'BA', 'AL', 'MK', 'ME', 'XK', 'AD', 'LI', 'MC', 'SM', 'VA'
+    'CH', 'MD', 'UA', 'BY', 'RS', 'BA', 'AL', 'MK', 'ME', 'XK', 'AD', 'LI', 'MC', 'SM', 'VA', 'RU'
 }
 
 # Настройка логирования
