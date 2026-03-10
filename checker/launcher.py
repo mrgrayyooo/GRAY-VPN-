@@ -30,7 +30,7 @@ EUROPE_COUNTRIES = {
     'AT', 'CZ', 'DK', 'EE', 'FI', 'DE', 'HU',
     'LV', 'LT', 'NL', 'PL', 'SK', 'SE', 'NO',
     'CH', 'BY'
-
+}
 # Настройка логирования
 logging.basicConfig(
     level=logging.INFO,
