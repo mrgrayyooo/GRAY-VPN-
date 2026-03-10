@@ -27,10 +27,9 @@ MMDB_URL = "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country
 MMDB_PATH = "Country.mmdb"
 # Список европейских стран (ISO 3166-1 alpha-2) без России
 EUROPE_COUNTRIES = {
-    'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT',
-    'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'GB', 'IS', 'NO',
-    'CH', 'MD', 'UA', 'BY', 'RS', 'BA', 'AL', 'MK', 'ME', 'XK', 'AD', 'LI', 'MC', 'SM', 'VA', 'RU'
-}
+    'AT', 'CZ', 'DK', 'EE', 'FI', 'DE', 'HU',
+    'LV', 'LT', 'NL', 'PL', 'SK', 'SE', 'NO',
+    'CH', 'BY'
 
 # Настройка логирования
 logging.basicConfig(
