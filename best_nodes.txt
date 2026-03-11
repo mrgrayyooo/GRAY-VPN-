@@ -4,10 +4,9 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://a68c90a4-a560-489a-ab4b-d918e78e9dee@5.180.52.22:8443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=github.com&fp=chrome&pbk=YH_QnUEGzMHf8RjEDh5bRXocz7gq_QdrZWysD2yF_i8#🇳🇱 NL [GRAY VPN]
-vless://034a8ae2-9565-474c-9e91-c0f3a53326cc@144.31.224.230:4546?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=enterprise.api-maps.yandex.ru&pbk=3DLDFzq0NAYBMrhDOaMM04A_Ictohao2yWOY1NdrJCk#🇳🇱 NL [GRAY VPN]
+vless://6fd23cad-7332-433b-8e9e-2c105ec17a8f@185.126.67.160:773?type=tcp&security=reality&flow=xtls-rprx-vision&sni=www.amd.com&pbk=evD8WalRSfQZ19cuSjbszCdh6IhaHX1_a_GZqJ51GAs&fp=random#🇩🇪 DE [GRAY VPN]
 vless://6fd23cad-7332-433b-8e9e-2c105ec17a8f@5.253.30.236:8443?type=tcp&security=reality&flow=xtls-rprx-vision&sni=pimg.mycdn.me&pbk=evD8WalRSfQZ19cuSjbszCdh6IhaHX1_a_GZqJ51GAs&fp=random#🇳🇱 NL [GRAY VPN]
+vless://4311aa80-7260-45e7-93bb-417a52324a0f@nl.fatvenv.space:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=nl.fatvenv.space&fp=chrome&pbk=b5wyXcCQs36TMrKnnqUBQwo9B01OmJpg8uFVq2bBxyc&sid=907424b5a0a3c2a1&packetEncoding=xudp#🇳🇱 NL [GRAY VPN]
+vless://04cedda7-eaa9-4a55-915f-b601ea656720@147.45.41.21:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=qq&pbk=9gwqGMd4WDcmoUqAB7uuAsM6pj7W-PqYe5WSF-VemjY&sid=6ba85179e30d4fc2&sni=max.ru&path=&host=#🇦🇹 AT [GRAY VPN]
 vless://dc1b85fd-a08e-42d7-ae2b-0a320f3399b7@193.38.235.2:8443?encryption=none&type=tcp&security=reality&fp=chrome&sni=sun6-21.userapi.com&pbk=upDCW94g-pSYQrmXvOrTVYlwBUrSKhYFF9QwrqObdVo&sid=3ca620a7ed5f3196#🇳🇱 NL [GRAY VPN]
-vless://21915536-afb5-4a0c-b047-fcf549d3a173@meow-amsterdam.nethcloud.top:443?type=tcp&security=reality&fp=chrome&pbk=1HeKf_8KDjfzXfUi9P7WBaGStMvr96TKdUbofpkwBzQ&sid=8bd29483ded126b4&sni=wikihow.com&path=&host=m.ok.ru#🇳🇱 NL [GRAY VPN]
-vless://dc1b85fd-a08e-42d7-ae2b-0a320f3399b7@de.kv.prod.n7.homes:8443?type=tcp&security=reality&encryption=none&fp=chrome&pbk=upDCW94g-pSYQrmXvOrTVYlwBUrSKhYFF9QwrqObdVo&sid=3ca620a7ed5f3196&sni=sun6-21.userapi.com#🇩🇪 DE [GRAY VPN]
-vless://9b4a17a2-6845-4924-a81a-20b7591ba9f9@77.239.126.122:7443?type=tcp&security=reality&flow=xtls-rprx-vision&sni=chat.deepseek.com&pbk=5QAO98ot2U7TcGs_f6EEaQjCzNOJLNHqPf6smYsdFVI&fp=chrome&sid=d82fb387#🇪🇪 EE [GRAY VPN]
+vless://dc1b85fd-a08e-42d7-ae2b-0a320f3399b7@fi.kv.prod.n7.homes:8443?type=tcp&security=reality&encryption=none&fp=chrome&pbk=upDCW94g-pSYQrmXvOrTVYlwBUrSKhYFF9QwrqObdVo&sid=3ca620a7ed5f3196&sni=sun6-21.userapi.com#🇫🇮 FI [GRAY VPN]
