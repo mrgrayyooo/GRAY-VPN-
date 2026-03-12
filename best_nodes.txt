@@ -5,6 +5,6 @@
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
 vless://747e1e0a-bf07-455b-9423-978412ec0463@85.17.192.92:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=www.jobinvest.ru&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc#🇳🇱 NL [GRAY VPN]
-vless://a68c90a4-a560-489a-ab4b-d918e78e9dee@5.180.52.22:8443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=github.com&fp=chrome&pbk=YH_QnUEGzMHf8RjEDh5bRXocz7gq_QdrZWysD2yF_i8#🇳🇱 NL [GRAY VPN]
-vless://9b4a17a2-6845-4924-a81a-20b7591ba9f9@152.53.32.169:7443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=chat.deepseek.com&fp=chrome&security=reality&pbk=5QAO98ot2U7TcGs_f6EEaQjCzNOJLNHqPf6smYsdFVI&sid=d82fb387&packetEncoding=xudp#🇩🇪 DE [GRAY VPN]
+vless://0e68a6ef-357f-4b8f-a634-3261d1f90f50@85.17.192.92:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=www.jobinvest.ru&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc#🇳🇱 NL [GRAY VPN]
 vless://553faafb-9d5e-4986-a2ab-450ad9fc6a3f@90909.sbs:8443?security=reality&encryption=none&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=dropbox.com#🇨🇭 CH [GRAY VPN]
+vless://742d2dcb-ab26-4b10-b0a3-2efed2c154fa@152.89.244.24:8443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=safari&sni=addons.mozilla.org&pbk=nmdu3rhLXUr8KzGtN_0D4Zc5JS1V8t9S4_iDXvtWk2I&sid=9e1c7b3a5f2086d4#🇩🇪 DE [GRAY VPN]
