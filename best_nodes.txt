@@ -4,11 +4,15 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
+vless://a394b50d-531a-441f-ac21-01224fbbb87c@89.149.243.204:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=www.jobinvest.ru&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc#🇳🇱 NL [GRAY VPN]
+vless://b61714be-8bc6-4a9a-bc46-c1950aa603b1@194.9.6.118:12443?security=reality&encryption=none&pbk=kjYnWkxgewB9k_-RWIgRPvjOoiCREr9ks5qllrvb-hI&headerType=none&fp=chrome&spx=%2F&type=tcp&sni=google.com&sid=1d17b9f02500fd14#🇩🇪 DE [GRAY VPN]
 vless://464854c0-d879-433b-8ae2-28bfe19ed08e@nl2.fastdbn.com:443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=cdn-fastly-v6.deb.debian.org&fp=chrome&pbk=12UHjWCU_BNIkRmxt-6QKAuVuSIFzoS2jkN1BIMzGjM&sid=cdce15b3e2179ce8#🇨🇭 CH [GRAY VPN]
-vless://9bc2b4de-8dc1-41e8-91d6-37e2687d9eff@89.125.62.181:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&pbk=jSx3_X_tBAcNgp7SrKSfZnr5WN0cTN2ShEJv4rHceQU&sid=&packetEncoding=xudp#🇵🇱 PL [GRAY VPN]
 vless://464854c0-d879-433b-8ae2-28bfe19ed08e@nl2.fastdbn.com:443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=ftp.debian.org&fp=firefox&pbk=12UHjWCU_BNIkRmxt-6QKAuVuSIFzoS2jkN1BIMzGjM#🇨🇭 CH [GRAY VPN]
+vless://b61714be-8bc6-4a9a-bc46-c1950aa603b1@45.138.16.101:12443?security=reality&encryption=none&pbk=kjYnWkxgewB9k_-RWIgRPvjOoiCREr9ks5qllrvb-hI&headerType=none&fp=chrome&spx=%2F&type=tcp&sni=google.com&sid=1d17b9f02500fd14#🇵🇱 PL [GRAY VPN]
 vless://1e752044-48c1-4208-a394-1403f721735e@144.31.0.67:443?type=tcp&security=reality&flow=xtls-rprx-vision&sni=www.amd.com&pbk=FscaEWx0paNBzL7GWHj4Fll7Xc-KxdhKgTthBAnByWI&fp=random#🇵🇱 PL [GRAY VPN]
-vless://dd9aa011-1ebd-11f1-8cae-c3845d39d2de@ams1.maxservice.info:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=BQlSdhO-YAJQdGl58kbLior2xSnhXtpHOJVE6js3OnE&sid=0123456789abcdef&sni=www.microsoft.com&path=&host=#🇳🇱 NL [GRAY VPN]
-vless://322841fa-8070-4476-a1e6-af1e08df73e1@72.56.94.87:443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=2gis.ru&fp=chrome&pbk=uI38ixzF_CY6xxujo1nhU7GwZPRgURkJr6luraQntBI&sid=8a8efa#🇳🇱 NL [GRAY VPN]
+vless://a04c351d-3efc-43de-99db-b5188cd04531@api8.maps-yandex.net:10970?type=tcp&security=reality&flow=xtls-rprx-vision&sni=deepl.com&pbk=_RCN3b8MUJE61ES111k45TLrvB_nUi1pywAO5sc0OF0&fp=qq&sid=cb8ba29900e2f68b#🇸🇪 SE [GRAY VPN]
 vless://464854c0-d879-433b-8ae2-28bfe19ed08e@nl2.fastdbn.com:443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=cdn-fastly-v6.deb.debian.org&fp=firefox&pbk=12UHjWCU_BNIkRmxt-6QKAuVuSIFzoS2jkN1BIMzGjM&sid=cdce15b3e2179ce8#🇨🇭 CH [GRAY VPN]
-vless://dd9aa011-1ebd-11f1-8cae-c3845d39d2de@se.maxservice.info:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=BQlSdhO-YAJQdGl58kbLior2xSnhXtpHOJVE6js3OnE&sid=&sni=www.microsoft.com&path=&host=#🇸🇪 SE [GRAY VPN]
+vless://a04c351d-3efc-43de-99db-b5188cd04531@4onkqk.lt-api-yandex.com:22230?type=tcp&security=reality&flow=xtls-rprx-vision&sni=deepl.com&pbk=ajNtNrFThLn2_WyWnv1Zkf676_i95nCABb2gX7OlHEI&fp=qq&sid=a9725715bf4c62ff#🇱🇹 LT [GRAY VPN]
+vless://57bd4d3f-0560-4866-ab94-c7a36c2feb8b@77.83.246.63:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=&pbk=ynPBgBImpx74ab57nwjjWfvDR_XZbhCErWeQkP4i510&sid=76e6197ff41227f5&sni=ign.com&path=/livedata&host=#🇵🇱 PL [GRAY VPN]
+vless://dd9aa011-1ebd-11f1-8cae-c3845d39d2de@ams1.maxservice.info:8443?Telegram=@GozargahAzad,@GozargahAzad,@GozargahAzad,@GozargahAzad,@GozargahAzad,@GozargahAzad,@GozargahAzad&type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=BQlSdhO-YAJQdGl58kbLior2xSnhXtpHOJVE6js3OnE&sid=0123456789abcdef&sni=www.microsoft.com&path=&host=#🇳🇱 NL [GRAY VPN]
+vless://322841fa-8070-4476-a1e6-af1e08df73e1@72.56.94.87:443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=2gis.ru&fp=chrome&pbk=uI38ixzF_CY6xxujo1nhU7GwZPRgURkJr6luraQntBI&sid=8a8efa#🇳🇱 NL [GRAY VPN]
