@@ -4,8 +4,5 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://9bb64d52-423f-4de0-ab23-587720af2021@85.192.49.237:8143?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=rbc.ru&pbk=4gcDJumxa0bTaHvrZRL4Hb5ItXPha6ZYZ0fGmMD_k0A&sid=1afc9d750da1ba88#🇫🇮 FI [GRAY VPN]
-vless://2563b829-866c-4c0f-8270-a91cffbfe852@de24.abvpn.ru:443?type=tcp&security=reality&fp=firefox&pbk=eKglVNr1vCmVZxLeGS6_-sZWXEJLWckuzkpmox1-jQ8&sid=0f8e3fce&sni=www.tradingview.com&spx=/#🇩🇪 DE [GRAY VPN]
-vless://6bd5e67b-e1fb-48b5-bf8c-bebb3dc6be7e@ee.subtrust.ru:443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=www.apple.com&pbk=ThK5XZ34BgaKYFlstl-LPWepa_ZdCx3xGkvST8o9_Aw&sid=821975a1a458369e#🇪🇪 EE [GRAY VPN]
-vless://9bb64d52-423f-4de0-ab23-587720af2021@85.192.49.237:8143?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=random&sni=rbc.ru&pbk=4gcDJumxa0bTaHvrZRL4Hb5ItXPha6ZYZ0fGmMD_k0A&sid=1afc9d750da1ba88#🇫🇮 FI [GRAY VPN]
+vless://d51f31b4-6e74-4a57-8ea0-a62830df3f45@a-1.api.plnt.su:443?security=reality&type=tcp&headerType=&path=&host=&flow=xtls-rprx-vision&sni=a-1.api.plnt.su&fp=chrome&pbk=1he5EyHxI595x0mNkFNxOebUOQZGVGIy_c92bn1qO2o&sid=ac31827454d7f693#🇳🇱 NL [GRAY VPN]
 vless://975f547a-92c3-4561-9cad-dd3c44d5dcb4@api9.maps-yandex.net:10970?type=tcp&security=reality&flow=xtls-rprx-vision&sni=deepl.com&pbk=_RCN3b8MUJE61ES111k45TLrvB_nUi1pywAO5sc0OF0&fp=qq&sid=cb8ba29900e2f68b#🇸🇪 SE [GRAY VPN]
