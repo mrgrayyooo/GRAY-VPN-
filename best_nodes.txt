@@ -6,5 +6,6 @@
 
 vless://4754e20c-312f-4f13-979b-374b65fc192b@nl0.nerpvpn.net:443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=store.steampowered.com&fp=qq&security=reality&pbk=DrWq_ysFaGPGgRFcHevMPoruwYMRXryW6i_cwE7CuCM&sid=189cfa69#🇳🇱 NL [GRAY VPN]
 vless://0c56d165-7005-4655-8b9e-4f6888b50318@188.130.208.100:443?encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=NA3YQIUgOqXIoyBquevtBj9WH9F8dMYOsXVyIyjgTSM&security=reality&sni=azure.microsoft.com&spx=%2FNDWYZRyXyLnXXJk&type=tcp&sid=10785df3f05f625f#🇨🇿 CZ [GRAY VPN]
-vless://0f780c56-a708-44d9-a1a1-7c210b65e44f@5.181.48.45:44435?security=reality&type=tcp&sni=www.amazon.com&fp=ios&flow=xtls-rprx-vision&sid=19fc123c52e7c30a&pbk=CdCF_1UhM5QocRpNw2I7DasURAf3n80BoFskTI8WKHw#🇩🇪 DE [GRAY VPN]
+vless://bea7a5db-bb02-4bcd-bece-62832eb1bc94@144.31.129.196:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=qq&sni=www.vk.com&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&sid=6ba85179e30d4fc2#🇪🇪 EE [GRAY VPN]
+vless://997bc475-4621-4612-8337-cc55a0cb68ab@lv2.fastdbn.com:5001/?type=grpc&encryption=none&flow=&serviceName=downloads.3cx.com&sni=downloads.3cx.com&fp=qq&security=reality&pbk=12UHjWCU_BNIkRmxt-6QKAuVuSIFzoS2jkN1BIMzGjM&sid=&packetEncoding=xudp#🇱🇻 LV [GRAY VPN]
 vless://997bc475-4621-4612-8337-cc55a0cb68ab@lv2.fastdbn.com:5001/?type=grpc&encryption=none&flow=&serviceName=downloads.3cx.com&sni=downloads.3cx.com&fp=qq&security=reality&pbk=12UHjWCU_BNIkRmxt-6QKAuVuSIFzoS2jkN1BIMzGjM&sid=&packetEncoding=xudp#🇱🇻 LV [GRAY VPN]
