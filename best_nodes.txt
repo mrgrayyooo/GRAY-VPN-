@@ -4,5 +4,5 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://418a67d1-e7fc-4832-bc5d-980c77c1f7de@pl.rexten.cc:443?type=tcp&security=reality&flow=xtls-rprx-vision&sni=pl.rexten.cc&pbk=OFmJtVi6OB9E6KIc5QV5YmoouimRFc-Se9hICjtV8hQ#🇵🇱 PL [GRAY VPN]
-vless://418a67d1-e7fc-4832-bc5d-980c77c1f7de@144.31.112.100:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&sni=pl.rexten.cc&pbk=OFmJtVi6OB9E6KIc5QV5YmoouimRFc-Se9hICjtV8hQ#🇵🇱 PL [GRAY VPN]
+vless://b44fbf4a-09f4-461d-a532-43242732f00c@144.31.170.163:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&sni=www.vk.com&pbk=gBer2H45i735ynkGtcYhGELZXDIf5CfxpE4S_Cl4WGw#🇪🇪 EE [GRAY VPN]
+vless://b44fbf4a-09f4-461d-a532-43242732f00c@ee-3.ummavpn.com:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.vk.com&pbk=gBer2H45i735ynkGtcYhGELZXDIf5CfxpE4S_Cl4WGw&type=tcp&headerType=none#🇪🇪 EE [GRAY VPN]
