@@ -4,5 +4,6 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://b44fbf4a-09f4-461d-a532-43242732f00c@144.31.170.163:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&sni=www.vk.com&pbk=gBer2H45i735ynkGtcYhGELZXDIf5CfxpE4S_Cl4WGw#🇪🇪 EE [GRAY VPN]
-vless://b44fbf4a-09f4-461d-a532-43242732f00c@ee-3.ummavpn.com:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.vk.com&pbk=gBer2H45i735ynkGtcYhGELZXDIf5CfxpE4S_Cl4WGw&type=tcp&headerType=none#🇪🇪 EE [GRAY VPN]
+vless://0f780c56-a708-44d9-a1a1-7c210b65e44f@5.181.48.45:44435?security=reality&type=tcp&sni=www.amazon.com&fp=ios&flow=xtls-rprx-vision&sid=19fc123c52e7c30a&pbk=CdCF_1UhM5QocRpNw2I7DasURAf3n80BoFskTI8WKHw#🇩🇪 DE [GRAY VPN]
+vless://658786e5-f302-48e2-b321-f4dc6da2a398@213.108.20.6:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=cdnv-img.perekrestok.ru&pbk=EdEtwDL3a_V9midkIqik19C3xo7VvefseGkDM5jBWGM&sid=ba34cbf836e99bf6#🇩🇪 DE [GRAY VPN]
+vless://f6eb5903-35ae-42d0-b60a-9e01e51e6d99@de-5.vpnd.io:43881?type=tcp&security=reality&flow=xtls-rprx-vision&fp=random&pbk=0OjbaFdJ3LVEpRBR4dfX2dnZK5ZdBGK58lKbvPaABg8&sid=6b7294d7b5ec&sni=amazon.com#🇩🇪 DE [GRAY VPN]
