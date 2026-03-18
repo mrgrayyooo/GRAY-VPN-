@@ -4,5 +4,5 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://84a5797e-8942-419e-8c11-d022d7690b0a@nl.crunch-crunch.com:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=djTtGqd0XWqtt_WHukU7BTPQSn9o7gIpAosAxMy8tUo&sid=ea1058117be12087&sni=nl.crunch-crunch.com&path=&host=nl.crunch-crunch.com#🇳🇱 NL [GRAY VPN]
-vless://19cb2ba5-d074-42d6-8400-6d9183514f48@148.135.195.143:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=nPcUKydxoRI66O3tT9O4QCZpLjOBvkGsiXG7pDX1BBw&sid=6ba85179e30d4fc2&sni=www.google.com&host=www.google.com#🇳🇴 NO [GRAY VPN]
+vless://84a5797e-8942-419e-8c11-d022d7690b0a@178.173.254.148:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=djTtGqd0XWqtt_WHukU7BTPQSn9o7gIpAosAxMy8tUo&sid=ea1058117be12087&sni=nl.crunch-crunch.com&path=&host=nl.crunch-crunch.com#🇳🇱 NL [GRAY VPN]
+vless://1dd4b4e6-6113-4c65-83a9-8df76e248b30@ee-in-01.ray-proxy.ru:443?security=reality&encryption=none&pbk=Q0KSMLilS52B3cjNuSU2TwG9be57R3Gs9-l5rqPQSCg&headerType=none&fp=random&type=tcp&flow=xtls-rprx-vision&sni=eh.vk.com#🇪🇪 EE [GRAY VPN]
