@@ -4,5 +4,6 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
+vless://6cabb434-f480-478a-9586-a5667167eeb1@77.246.111.72:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=qq&pbk=tZ-tscsitfHIe63_9FAqruCnJaNFhRaKCnR8G-e4-CM&sid=ae&sni=images.apple.com&path=&host=#🇳🇱 NL [GRAY VPN]
+vless://6cabb434-f480-478a-9586-a5667167eeb1@cdn-nl-cf.barryvpn.com:8443?encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=tZ-tscsitfHIe63_9FAqruCnJaNFhRaKCnR8G-e4-CM&security=reality&sid=ae&sni=images.apple.com&type=tcp#🇳🇱 NL [GRAY VPN]
 vless://6cabb434-f480-478a-9586-a5667167eeb1@cdn-fl-cf.barryvpn.com:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=tZ-tscsitfHIe63_9FAqruCnJaNFhRaKCnR8G-e4-CM&sid=93983a&sni=images.apple.com&path=&host=#🇫🇮 FI [GRAY VPN]
-vless://6cabb434-f480-478a-9586-a5667167eeb1@cdn-nl-cf.barryvpn.com:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=qq&pbk=tZ-tscsitfHIe63_9FAqruCnJaNFhRaKCnR8G-e4-CM&sid=ae&sni=images.apple.com&path=&host=#🇳🇱 NL [GRAY VPN]
