@@ -4,5 +4,7 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://6cabb434-f480-478a-9586-a5667167eeb1@cdn-fl-cf.barryvpn.com:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=tZ-tscsitfHIe63_9FAqruCnJaNFhRaKCnR8G-e4-CM&sid=93983a&sni=images.apple.com&path=&host=#🇫🇮 FI [GRAY VPN]
-vless://3fe48a33-aac8-41cd-b2db-fdeeafced0aa@lt.lazeroe.com:443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=api.vkvideo.ru&pbk=drl7nndYdfzZY1aQ0eUAWmNV0nsHig2uDnu9siy9biQ&sid=868419504747f6de#🇱🇹 LT [GRAY VPN]
+vless://b1f549c3-f65f-4c19-bdef-a61fa166c106@zam2r.skystreamgame.com:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=randomized&pbk=XBePIY00JetBf0pbmcx-Dvu8XsZ-l079GiHf93HhS0Y&sid=6d6f13013d3e1d0c&sni=zam2r.skystreamgame.com&path=&host=q31xg8yf1q.skystreamgame.com#🇸🇪 SE [GRAY VPN]
+vless://1c61a6c0-9bc7-4cb8-9188-6d86d5989388@nltw4.lckdwn.ru:8443?type=tcp&security=reality&encryption=none&fp=chrome&pbk=XEWgLksY3vnV9riMEO7AZ7HR0Ecv3HxXLFglZtcmx00&sid=d5&sni=nltw4.lckdwn.ru&spx=/#🇳🇱 NL [GRAY VPN]
+vless://299d7042-bb13-442b-8985-c69d6ab83e6c@fi.vz-or.com:443?flow=xtls-rprx-vision&fp=qq&pbk=RJETAkoZ6lowmwc5f0HtPy00c3dfojqQuypriLExXRE&security=reality&sid=abbcd128&sni=sun9-36.userapi.com&type=tcp#🇫🇮 FI [GRAY VPN]
+vless://630011ef-3dbb-767d-53dd-7f7d72dd915f@polvis.subsvdragontoo.online:8443?type=ws&security=tls&encryption=none&sni=polvis.subsvdragontoo.online&host=polvis.subsvdragontoo.online#🇵🇱 PL [GRAY VPN]
