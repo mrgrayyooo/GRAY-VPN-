@@ -4,6 +4,5 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://654ab79c-8c57-81b8-e079-9180f7262e30@185.130.224.58:47006?security=reality&encryption=none&pbk=NTuI1KllPR2DtdPM5mqJBzOCVGuHyQNY8gCkx2f2CBk&headerType=&fp=qq&type=tcp&flow=xtls-rprx-vision&sni=sun6-21.userapi.com&sid=35a84908e9cfa95c#🇳🇱 NL [GRAY VPN]
-vless://6cabb434-f480-478a-9586-a5667167eeb1@cdn-fl-cf.barryvpn.com:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=tZ-tscsitfHIe63_9FAqruCnJaNFhRaKCnR8G-e4-CM&sid=93983a&sni=images.apple.com&path=&host=#🇫🇮 FI [GRAY VPN]
-vless://3fe48a33-aac8-41cd-b2db-fdeeafced0aa@lt.lazeroe.com:443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=api.vkvideo.ru&pbk=drl7nndYdfzZY1aQ0eUAWmNV0nsHig2uDnu9siy9biQ&sid=868419504747f6de#🇱🇹 LT [GRAY VPN]
+vless://3ac0bcf3-6ab4-4256-9a4d-ce414f3eff26@64.188.65.117:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&sni=www.apple.com&pbk=g3yCgYCBxW-7haWdMy_Wf7bwKMLfCEUwpISi4X1hz00&sid=b28e63e1fd3953b1#🇩🇪 DE [GRAY VPN]
+vless://d02c92dc-93e0-4a0f-b2ed-65e7515a0b5e@ch1.sky-vault.top:443?type=grpc&security=reality&fp=chrome&pbk=sJcJOdn8I9a5IkzxxgNVEP85kcrE5LtmyJwTeWry8Uw&sid=694d3b2b5b3a31b6&sni=ch1.sky-vault.top&mode=gun&serviceName=grpc&authority=#🇨🇭 CH [GRAY VPN]
