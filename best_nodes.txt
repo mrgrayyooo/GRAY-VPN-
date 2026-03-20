@@ -4,7 +4,5 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://299d7042-bb13-442b-8985-c69d6ab83e6c@fi.vz-or.com:443?flow=xtls-rprx-vision&fp=qq&pbk=RJETAkoZ6lowmwc5f0HtPy00c3dfojqQuypriLExXRE&security=reality&sid=abbcd128&sni=sun9-36.userapi.com&type=tcp#🇫🇮 FI [GRAY VPN]
-vless://630011ef-3dbb-767d-53dd-7f7d72dd915f@144.31.1.208:8443?encryption=none&type=ws&security=tls&host=polvis.subsvdragontoo.online&sni=polvis.subsvdragontoo.online#🇵🇱 PL [GRAY VPN]
-vless://630011ef-3dbb-767d-53dd-7f7d72dd915f@polvis.subsvdragontoo.online:8443?type=ws&security=tls&encryption=none&sni=polvis.subsvdragontoo.online&host=polvis.subsvdragontoo.online#🇵🇱 PL [GRAY VPN]
-vless://eceb9426-48bb-4bcb-b8f8-f1dbd824e0a0@fi1.cvs-a.com:443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=service.cvs-a.com&fp=chrome&pbk=tUHMhrx7aGyQdFaoguIjlS8jO4GF6LJb1MEXDODJonk&sid=f194ec28#🇸🇪 SE [GRAY VPN]
+vless://7e0a9f75-b424-493b-b7e6-cebd7ea8642d@aucdn4.melodramaonline.net:443/?type=tcp&encryption=none&flow=&security=tls&sni=aucdn4.melodramaonline.net&fp=chrome&packetEncoding=xudp#🇦🇹 AT [GRAY VPN]
+vless://299d7042-bb13-442b-8985-c69d6ab83e6c@213.165.57.209:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=qq&pbk=RJETAkoZ6lowmwc5f0HtPy00c3dfojqQuypriLExXRE&sid=abbcd128&sni=sun9-36.userapi.com#🇫🇮 FI [GRAY VPN]
