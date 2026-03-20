@@ -4,7 +4,8 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://d2e92e2d-1ebd-11f1-8cae-c3845d39d2de@104.194.158.98:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=FVL0r87K3-vUP2KXQX1juLMFEHJtvxwKM-nm6_PYllc&sid=deadbeef42&sni=www.apple.com&path=&host=#🇩🇪 DE [GRAY VPN]
-vless://d2e92e2d-1ebd-11f1-8cae-c3845d39d2de@46.202.190.123:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=FVL0r87K3-vUP2KXQX1juLMFEHJtvxwKM-nm6_PYllc&sid=deadbeef42&sni=www.apple.com&path=&host=#🇱🇹 LT [GRAY VPN]
-vless://7e0a9f75-b424-493b-b7e6-cebd7ea8642d@aucdn4.melodramaonline.net:443/?type=tcp&encryption=none&flow=&security=tls&sni=aucdn4.melodramaonline.net&fp=chrome&packetEncoding=xudp#🇦🇹 AT [GRAY VPN]
+vless://bf432795-1383-46e5-8823-d638b956cabe@144.31.233.146:43361?type=tcp&security=reality&encryption=none&fp=chrome&pbk=OVkz4f4FnObOQT4vz8SqpiuzFDmTjYH4OZk2wIbjgCk&sid=55ba93eb8c&sni=www.nvidia.com&spx=/#🇳🇱 NL [GRAY VPN]
 vless://cf44b733-1ebd-11f1-8cae-c3845d39d2de@31.59.102.176:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=FVL0r87K3-vUP2KXQX1juLMFEHJtvxwKM-nm6_PYllc&sid=cafe01234567&sni=www.apple.com&path=&host=#🇱🇻 LV [GRAY VPN]
+vless://7e0a9f75-b424-493b-b7e6-cebd7ea8642d@aucdn4.melodramaonline.net:443/?type=tcp&encryption=none&flow=&security=tls&sni=aucdn4.melodramaonline.net&fp=chrome&packetEncoding=xudp#🇦🇹 AT [GRAY VPN]
+vless://8e2ebe63-0ca3-4468-8469-fbc7974b2b48@node-ch1.cdn-global.pro:58888?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=bHBZDPBhtUUsRx9oJVJPIk_3V_0RjyYSbmWyIaLDQ2M&sid=372c05b48fe83e5b&sni=avatars.mds.yandex.net&path=&host=&spx=/#🇨🇭 CH [GRAY VPN]
+vless://8e2ebe63-0ca3-4468-8469-fbc7974b2b48@node-pl1.cdn-global.pro:58888?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=bHBZDPBhtUUsRx9oJVJPIk_3V_0RjyYSbmWyIaLDQ2M&sid=372c05b48fe83e5b&sni=avatars.mds.yandex.net&path=&host=&spx=/#🇵🇱 PL [GRAY VPN]
