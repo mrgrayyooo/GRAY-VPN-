@@ -4,5 +4,4 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://35b8e6de-9ea9-42a6-8045-c858e1b0a37d@vpn4.osaku.ru:17873?type=tcp&security=reality&fp=chrome&pbk=21I2zNGkoNRdySx85Ie_KY3ppat-GHMcU1bm8mSJqEY&sid=de611036cc&sni=yahoo.com&spx=/#🇩🇪 DE [GRAY VPN]
-vless://40fb2d29-374c-4255-ae56-bf3ad95b8b37@144.31.239.139:25340?type=tcp&security=reality&encryption=none&fp=chrome&pbk=fmLlp7Vg3qzskePTLeNWmgppe3TPYlHb_yqBzRxaxUE&sid=4830d187&sni=www.sony.com&spx=/#🇫🇮 FI [GRAY VPN]
+vless://bf263367-bb63-4663-b4a1-34946107a72e@82.22.40.180:8443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=5qvcOTHr_izGbsRz-j2xC3BMMdugFMsl7MnANjzwZ0I&sid=b2a1c97a38&sni=www.apple.com#🇵🇱 PL [GRAY VPN]
