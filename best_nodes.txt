@@ -4,16 +4,11 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://ddf1adf2-703c-41ac-ab4d-8ca07f2ad0f6@64.188.104.67:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=se-germ-t-500.chocobo.fun&pbk=QBxj4B3BxMFJf3Uc_YpHhm8xKhwmxIKPiAYw7YNTAmo&sid=0d9233f5a6fe7afc&spx=%2F#🇩🇪 DE [GRAY VPN]
-vless://6053689d-39d6-4005-b1bd-c0dce854f429@84.21.189.25:443?allowInsecure=1&alpn=h2&encryption=none&flow=xtls-rprx-vision&security=tls&sni=de-fast.chunkyvpn.shop&type=tcp#🇩🇪 DE [GRAY VPN]
-vless://ddf1adf2-703c-41ac-ab4d-8ca07f2ad0f6@se-germ-t-250.chocobo.fun:443?security=reality&type=tcp&headerType=none&path=&host=&flow=xtls-rprx-vision&sni=se-germ-t-250.chocobo.fun&fp=chrome&pbk=aeywjbfGHDanAcxNuCfzoSE6Nh6ypqKrf-ujiz5o8UQ&sid=6bf3f659&spx=%2F#🇩🇪 DE [GRAY VPN]
 vless://6053689d-39d6-4005-b1bd-c0dce854f429@de-fast.chunkyvpn.shop:443?type=tcp&security=tls&sni=de-fast.chunkyvpn.shop&flow=xtls-rprx-vision#🇩🇪 DE [GRAY VPN]
-vless://ddf1adf2-703c-41ac-ab4d-8ca07f2ad0f6@se-germ-t-500.chocobo.fun:443?security=reality&type=tcp&headerType=none&path=&host=&flow=xtls-rprx-vision&sni=se-germ-t-500.chocobo.fun&fp=chrome&pbk=QBxj4B3BxMFJf3Uc_YpHhm8xKhwmxIKPiAYw7YNTAmo&sid=0d9233f5a6fe7afc&spx=%2F#🇩🇪 DE [GRAY VPN]
-vless://3ba5aeb7-10f5-401b-9c71-cf10885154c5@1m8353.lt-api-yandex.com:22230?type=tcp&security=reality&flow=xtls-rprx-vision&sni=deepl.com&pbk=ajNtNrFThLn2_WyWnv1Zkf676_i95nCABb2gX7OlHEI&fp=qq&sid=a9725715bf4c62ff#🇱🇹 LT [GRAY VPN]
 vless://43e322c8-e044-4625-a560-9bfec45e0eae@150.241.70.31:8443?security=reality&encryption=none&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=yandex.net&sid=6ba85179e30d4fc2#🇩🇪 DE [GRAY VPN]
+vless://3ba5aeb7-10f5-401b-9c71-cf10885154c5@1m8353.lt-api-yandex.com:22230?type=tcp&security=reality&flow=xtls-rprx-vision&sni=deepl.com&pbk=ajNtNrFThLn2_WyWnv1Zkf676_i95nCABb2gX7OlHEI&fp=qq&sid=a9725715bf4c62ff#🇱🇹 LT [GRAY VPN]
 vless://dff99fb4-09ff-4f48-8f48-937aac342254@5.199.173.206:7443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=chat.deepseek.com&fp=chrome&pbk=5QAO98ot2U7TcGs_f6EEaQjCzNOJLNHqPf6smYsdFVI&sid=be0ce047#🇱🇹 LT [GRAY VPN]
 vless://dff99fb4-09ff-4f48-8f48-937aac342254@84.32.110.223:7443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=chat.deepseek.com&fp=chrome&pbk=5QAO98ot2U7TcGs_f6EEaQjCzNOJLNHqPf6smYsdFVI&sid=d82fb387#🇱🇹 LT [GRAY VPN]
-vless://02998146-aec0-4b95-b94e-5b8cfe649b6a@nodeams.zykosafe.ru:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.booking.com&fp=chrome&pbk=wKflazjC2lKOhs3dyjozFd4OBXycHwhjvN35y_a8nTI&sid=a1b2&packetEncoding=xudp#🇳🇱 NL [GRAY VPN]
-vless://ddf1adf2-703c-41ac-ab4d-8ca07f2ad0f6@se-germ-t-500.chocobo.fun:8444?security=reality&type=grpc&headerType=&authority=&serviceName=api.gateway.StreamService&flow=&mode=multi&sni=se-germ-t-500.chocobo.fun&fp=chrome&pbk=QBxj4B3BxMFJf3Uc_YpHhm8xKhwmxIKPiAYw7YNTAmo&sid=0d9233f5a6fe7afc&spx=%2F#🇩🇪 DE [GRAY VPN]
-vless://110d7bad-5e17-4ce3-afd0-2cf2ebc71787@n06.zqwerty.ru:2053?type=tcp&security=reality&fp=ios&pbk=aFsY-EZjSNTomlAFShKwQIQMJ5pHiZQXXJpWvcz8WkQ&sid=0858af97f4e7324d&sni=music.yandex.ru&path=&host=#🇳🇱 NL [GRAY VPN]
-vless://02998146-aec0-4b95-b94e-5b8cfe649b6a@au.zykosafe.ru:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.google.com&pbk=AIkH0Ma0TA29qDIWT9zwEDknsSnVbhZod8-j5e8akhM&sid=6ba85179e35d4fc7&packetEncoding=xudp#🇩🇪 DE [GRAY VPN]
+vless://6053689d-39d6-4005-b1bd-c0dce854f429@84.21.189.25:443?allowInsecure=1&alpn=h2&encryption=none&flow=xtls-rprx-vision&security=tls&sni=de-fast.chunkyvpn.shop&type=tcp#🇩🇪 DE [GRAY VPN]
+vless://85668ba7-31fa-4bb6-8d1c-40d898290ad8@nl.chanvpn.ru:2053?security=reality&encryption=none&pbk=rR-VrakwXWCU1MZu34xI1g-LBK7Ux7kLLrj9LMYJiwQ&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=sun6-21.userapi.com&sid=a1b2c3d4#🇳🇱 NL [GRAY VPN]
+vless://110d7bad-5e17-4ce3-afd0-2cf2ebc71787@fl01.zqwerty.ru:2053?type=tcp&security=reality&fp=chrome&pbk=aFsY-EZjSNTomlAFShKwQIQMJ5pHiZQXXJpWvcz8WkQ&sid=0858af97f4e7324d&sni=music.yandex.ru&path=&host=#🇫🇮 FI [GRAY VPN]
