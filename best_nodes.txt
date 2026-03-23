@@ -4,13 +4,16 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://71a5d7f2-2ac6-4020-acaf-3c59efa4e856@ne02.sonicsonic.icu:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=random&pbk=tleIEdKFBiCTqsd-ZukETSt5dqTsHLAikkiV_ly-FEk&sid=&sni=ne02.sonicsonic.icu&path=&host=&spx=/#🇳🇱 NL [GRAY VPN]
 vless://c6780ff6-cd1e-4c57-8aa0-42ee0ccbd1d7@45.15.128.82:603?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=random&sni=www.amd.com&pbk=lWJaKBaMPs0NYHGCbfsrmn64R4juEQEvfmHNnL741Ek#🇳🇱 NL [GRAY VPN]
-vless://fc6f67fc-61b7-4455-aa92-0b7ce5368f42@69.12.83.222:443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=ign.com&fp=chrome&security=reality&pbk=6Ra2AsVwORJlxqvQ9YHAfHFk8Z0HZIrWuXxlBEYpwQY&sid=0b8e27d5f3a4c916&packetEncoding=xudp#🇪🇪 EE [GRAY VPN]
-vless://110d7bad-5e17-4ce3-afd0-2cf2ebc71787@195.123.218.246:2053?type=tcp&security=reality&fp=chrome&pbk=aFsY-EZjSNTomlAFShKwQIQMJ5pHiZQXXJpWvcz8WkQ&sid=0858af97f4e7324d&sni=music.yandex.ru&path=&host=#🇳🇱 NL [GRAY VPN]
-vless://050a78fb-d829-42fc-9aba-1295e8ddfa17@fi3.techdatacloud.org:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=y5IXVAnc3R9mxzVh8eP38rgqj4bBJEn3Kw_LrDzncQM&sid=779a6d10&sni=yandex.com&spx=/#🇫🇮 FI [GRAY VPN]
-vless://986aa7ae-18e7-41ad-9fa6-3470b4f78c5b@213.165.43.83:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=EA-Sxh4tF7Iym27iYccYI5aCrc796cBJgRv9_maBbl4&sid=80fb40&sni=web.max.ru&path=&host=&spx=/#🇩🇪 DE [GRAY VPN]
-vless://110d7bad-5e17-4ce3-afd0-2cf2ebc71787@lt.zqwerty.ru:2053?type=tcp&security=reality&fp=chrome&pbk=aFsY-EZjSNTomlAFShKwQIQMJ5pHiZQXXJpWvcz8WkQ&sid=0858af97f4e7324d&sni=music.yandex.ru&path=&host=#🇱🇹 LT [GRAY VPN]
+vless://c6780ff6-cd1e-4c57-8aa0-42ee0ccbd1d7@85.209.157.48:568?type=tcp&security=reality&flow=xtls-rprx-vision&sni=www.amd.com&pbk=59QwNDh3sgvFX12hCCoCveYykCzo19hxh6wel3hN3GA&fp=random#🇳🇱 NL [GRAY VPN]
+vless://c6780ff6-cd1e-4c57-8aa0-42ee0ccbd1d7@95.164.123.240:773?type=tcp&security=reality&flow=xtls-rprx-vision&sni=www.amd.com&pbk=evD8WalRSfQZ19cuSjbszCdh6IhaHX1_a_GZqJ51GAs&fp=random#🇩🇪 DE [GRAY VPN]
+vless://dff99fb4-09ff-4f48-8f48-937aac342254@152.53.152.198:7443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=chat.deepseek.com&fp=chrome&pbk=5QAO98ot2U7TcGs_f6EEaQjCzNOJLNHqPf6smYsdFVI&sid=d82fb387#🇩🇪 DE [GRAY VPN]
 vless://050a78fb-d829-42fc-9aba-1295e8ddfa17@lv.techdatacloud.org:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=At9Z0N6wl5rciP-FiSE-nkYKLeNe5YyUMR8d-KWqNBk&sid=43cdc296&sni=yandex.com&spx=/#🇱🇻 LV [GRAY VPN]
 vless://986aa7ae-18e7-41ad-9fa6-3470b4f78c5b@79.137.194.154:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=EA-Sxh4tF7Iym27iYccYI5aCrc796cBJgRv9_maBbl4&sid=0e658b&sni=web.max.ru&path=&host=&spx=/#🇳🇱 NL [GRAY VPN]
 vless://986aa7ae-18e7-41ad-9fa6-3470b4f78c5b@5.181.188.225:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=EA-Sxh4tF7Iym27iYccYI5aCrc796cBJgRv9_maBbl4&sid=80fb40&sni=web.max.ru&path=&host=&spx=/#🇵🇱 PL [GRAY VPN]
+vless://110d7bad-5e17-4ce3-afd0-2cf2ebc71787@195.123.218.246:2053?type=tcp&security=reality&fp=chrome&pbk=aFsY-EZjSNTomlAFShKwQIQMJ5pHiZQXXJpWvcz8WkQ&sid=0858af97f4e7324d&sni=music.yandex.ru&path=&host=#🇳🇱 NL [GRAY VPN]
+vless://050a78fb-d829-42fc-9aba-1295e8ddfa17@de3.techdatacloud.org:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=iYhD7HD5aIb_7a_AvLnVzzC6uF1bLQ_CoWOPIhp4-xo&sid=f1cf690c&sni=yandex.com&spx=/#🇩🇪 DE [GRAY VPN]
+vless://050a78fb-d829-42fc-9aba-1295e8ddfa17@fi3.techdatacloud.org:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=y5IXVAnc3R9mxzVh8eP38rgqj4bBJEn3Kw_LrDzncQM&sid=779a6d10&sni=yandex.com&spx=/#🇫🇮 FI [GRAY VPN]
+vless://050a78fb-d829-42fc-9aba-1295e8ddfa17@ee.techdatacloud.org:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=VmIb8SAGaEYM2CeBpo_pTLDJv9azMIqc1DXh0Jednwg&sid=f4d6738b&sni=yandex.com&spx=/#🇪🇪 EE [GRAY VPN]
+vless://050a78fb-d829-42fc-9aba-1295e8ddfa17@152.53.144.44:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=yandex.com&pbk=G9GIxvxwuNVqrA2Qbbminew0Y2vtgOoQUhFoxKzbgjA&sid=b302ac035e7ec002&spx=%2F#🇦🇹 AT [GRAY VPN]
+vless://050a78fb-d829-42fc-9aba-1295e8ddfa17@de4.techdatacloud.org:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=G9GIxvxwuNVqrA2Qbbminew0Y2vtgOoQUhFoxKzbgjA&sid=b302ac035e7ec002&sni=yandex.com&spx=/#🇦🇹 AT [GRAY VPN]
