@@ -4,8 +4,10 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://0cfb8127-873d-46ca-9f31-f7918cdaaf11@cloud4.whost-solutions.ru:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=&pbk=IAdOYYmEMPFAhpVUhqfML58AVtYPdAb71R_HAPf0N0k&sid=&sni=cloud.whost-solutions.ru&path=&host=#🇱🇹 LT [GRAY VPN]
-vless://c4f2dee2-14e3-4c02-91e9-31c7917e239c@swe-bridge.sbrf-cdn342.ru:443?type=tcp&security=tls&flow=xtls-rprx-vision&sni=sub.sbrf-cdn342.ru&fp=qq&alpn=http/1.1#🇸🇪 SE [GRAY VPN]
-vless://4dde0df3-aa67-417c-882e-28beb3886961@138.124.105.80:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=nld.pinkweb.one&pbk=MlAC3MfcDZsPdQJ_lRzrJ95pY07GPy1GgCILbFyRMWk&sid=7aedbcb49ddbb4c1#🇳🇱 NL [GRAY VPN]
-vless://4dde0df3-aa67-417c-882e-28beb3886961@138.124.105.75:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=nld.pinkweb.one&pbk=MlAC3MfcDZsPdQJ_lRzrJ95pY07GPy1GgCILbFyRMWk&sid=7aedbcb49ddbb4c1#🇳🇱 NL [GRAY VPN]
+vless://bf55995d-f051-476a-8243-0c3628ede808@vpn.aprux.ru:8443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=2oFey6BQD6Ev0nMR0haXHOtQy63a3JZzb_hYVmPJLSk&sid=2cb6&sni=google.com&spx=/#🇩🇪 DE [GRAY VPN]
 vless://5841eaaa-7a3f-4ded-8ac4-039de73973c2@144.31.177.15:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=randomized&pbk=ivgTfLR13A6xBsicIA28OPoav2tXlsstTTmGuETfnSk&sid=6d6f13013d3e1d0c&sni=f4.steptofreedom.one#🇫🇮 FI [GRAY VPN]
+vless://cf70a64b-c1ab-48f5-ac82-da8572b97e06@152.53.210.182:443?security=reality&encryption=none&pbk=dhTXgiFZvZPJSNc33EqNvn_CRor_RKeiMxSkHsEdDic&headerType=none&fp=chrome&spx=%2F&allowinsecure=0&type=tcp&flow=xtls-rprx-vision&sni=us.snowfall.top&sid=9663ef93c1d0f91a#🇦🇹 AT [GRAY VPN]
+vless://0cfb8127-873d-46ca-9f31-f7918cdaaf11@cloud4.whost-solutions.ru:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=&pbk=IAdOYYmEMPFAhpVUhqfML58AVtYPdAb71R_HAPf0N0k&sid=&sni=cloud.whost-solutions.ru&path=&host=#🇱🇹 LT [GRAY VPN]
+vless://4dde0df3-aa67-417c-882e-28beb3886961@138.124.105.75:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=nld.pinkweb.one&pbk=MlAC3MfcDZsPdQJ_lRzrJ95pY07GPy1GgCILbFyRMWk&sid=7aedbcb49ddbb4c1#🇳🇱 NL [GRAY VPN]
+vless://5841eaaa-7a3f-4ded-8ac4-039de73973c2@144.31.177.13:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=randomized&pbk=ivgTfLR13A6xBsicIA28OPoav2tXlsstTTmGuETfnSk&sid=6d6f13013d3e1d0c&sni=f2.steptofreedom.one#🇫🇮 FI [GRAY VPN]
+vless://4dde0df3-aa67-417c-882e-28beb3886961@138.124.105.80:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=nld.pinkweb.one&pbk=MlAC3MfcDZsPdQJ_lRzrJ95pY07GPy1GgCILbFyRMWk&sid=7aedbcb49ddbb4c1#🇳🇱 NL [GRAY VPN]
