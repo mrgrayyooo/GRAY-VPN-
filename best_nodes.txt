@@ -4,5 +4,8 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://8d5c2801-e4b5-42db-a427-d8a1312c666e@72.56.23.37:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=m.47news.ru&pbk=bDZMVH2376ZpWZLDhnVKA0C2NcAEyXOqVlKrILw8z1E&sid=b424fc54eefe2ba7#🇳🇱 NL [GRAY VPN]
 vless://0cfb8127-873d-46ca-9f31-f7918cdaaf11@cloud4.whost-solutions.ru:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=&pbk=IAdOYYmEMPFAhpVUhqfML58AVtYPdAb71R_HAPf0N0k&sid=&sni=cloud.whost-solutions.ru&path=&host=#🇱🇹 LT [GRAY VPN]
+vless://c4f2dee2-14e3-4c02-91e9-31c7917e239c@swe-bridge.sbrf-cdn342.ru:443?type=tcp&security=tls&flow=xtls-rprx-vision&sni=sub.sbrf-cdn342.ru&fp=qq&alpn=http/1.1#🇸🇪 SE [GRAY VPN]
+vless://4dde0df3-aa67-417c-882e-28beb3886961@138.124.105.80:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=nld.pinkweb.one&pbk=MlAC3MfcDZsPdQJ_lRzrJ95pY07GPy1GgCILbFyRMWk&sid=7aedbcb49ddbb4c1#🇳🇱 NL [GRAY VPN]
+vless://4dde0df3-aa67-417c-882e-28beb3886961@138.124.105.75:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=nld.pinkweb.one&pbk=MlAC3MfcDZsPdQJ_lRzrJ95pY07GPy1GgCILbFyRMWk&sid=7aedbcb49ddbb4c1#🇳🇱 NL [GRAY VPN]
+vless://5841eaaa-7a3f-4ded-8ac4-039de73973c2@144.31.177.15:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=randomized&pbk=ivgTfLR13A6xBsicIA28OPoav2tXlsstTTmGuETfnSk&sid=6d6f13013d3e1d0c&sni=f4.steptofreedom.one#🇫🇮 FI [GRAY VPN]
