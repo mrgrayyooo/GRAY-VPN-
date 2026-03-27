@@ -4,4 +4,7 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://0a77a746-518e-4f13-b6c6-7c3989a79a43@89.167.73.199:2053?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=TXWPcPocAblQBwIi9H6yoRBgyB62ZgwORImJHqo0lmQ&sid=31&sni=www.bing.com#🇫🇮 FI [GRAY VPN]
+vless://8d5c2801-e4b5-42db-a427-d8a1312c666e@72.56.23.37:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=m.47news.ru&pbk=bDZMVH2376ZpWZLDhnVKA0C2NcAEyXOqVlKrILw8z1E&sid=b424fc54eefe2ba7#🇳🇱 NL [GRAY VPN]
+vless://8d5c2801-e4b5-42db-a427-d8a1312c666e@ee.1ij.online:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=bDZMVH2376ZpWZLDhnVKA0C2NcAEyXOqVlKrILw8z1E&sid=b424fc54eefe2ba7&sni=m.47news.ru#🇪🇪 EE [GRAY VPN]
+vless://58388691-fa66-4676-8ee3-8b666b5a5c92@89.125.118.216:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=2sHhI4IgjRAthQfGEZyUSuvoA_IPo-4cNDaW1eYLvEo&sid=f5&sni=www.microsoft.com&spx=/#🇫🇮 FI [GRAY VPN]
+vless://4dde0df3-aa67-417c-882e-28beb3886961@ge.pinkweb.one:443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=ge.pinkweb.one&fp=chrome&security=reality&pbk=Zzl9Tz58jFMTnqHQPnQk9AQ4p05Jurdhk3opFRgZ22U&sid=5931256bb93953af#🇩🇪 DE [GRAY VPN]
