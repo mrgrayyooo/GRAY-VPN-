@@ -5,10 +5,6 @@
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
 vless://1ad4aa60-9050-4bc2-b3c6-551fd3bd8c09@138.124.74.14:11846?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=arAwNjquRc-K-e2VLZPRRUkkdrKRD6IE6JnSGFkYLj0&sid=f662b919db245a&sni=botapi.max.ru&spx=/#🇳🇱 NL [GRAY VPN]
-vless://3824f134-a633-4318-9c2a-79887bf811a0@152.53.1.112:7443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=chat.deepseek.com&fp=chrome&pbk=5QAO98ot2U7TcGs_f6EEaQjCzNOJLNHqPf6smYsdFVI&sid=be0ce047#🇦🇹 AT [GRAY VPN]
-vless://90c9c25c-df6c-4438-83d3-ef97166a9184@195.133.63.211:443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=www.cloudflare.com&fp=chrome&security=reality&pbk=A3PWLCRX9oeSyPvrmrwj2jUXcLo2uCwAISRBHtNE1Xw&sid=c8f32a9d1b2c4d5e&packetEncoding=xudp#🇨🇿 CZ [GRAY VPN]
-vless://ff4abdae-1c21-4ef7-ab83-9dacd5029984@nl-s3.ru:8443?security=reality&encryption=none&flow=xtls-rprx-vision&sni=ads.x5.ru&fp=edge&pbk=x274vAATjQyRHChXL5coeXJB4ZuGx_-4Q_918Rw6lWA&sid=372c05b48fe83e5b&type=tcp&packetEncoding=xudp#🇳🇱 NL [GRAY VPN]
-vless://ff4abdae-1c21-4ef7-ab83-9dacd5029984@de-s3.ru:8443?security=reality&encryption=none&flow=xtls-rprx-vision&sni=ads.x5.ru&fp=edge&pbk=x274vAATjQyRHChXL5coeXJB4ZuGx_-4Q_918Rw6lWA&sid=372c05b48fe83e5b&type=tcp&packetEncoding=xudp#🇩🇪 DE [GRAY VPN]
 vless://0cfb8127-873d-46ca-9f31-f7918cdaaf11@cloud4.whost-solutions.ru:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=&pbk=IAdOYYmEMPFAhpVUhqfML58AVtYPdAb71R_HAPf0N0k&sid=&sni=cloud.whost-solutions.ru&path=&host=#🇱🇹 LT [GRAY VPN]
-vless://e04e550a-ec5a-4f15-88f8-879cc6ae40dd@84.32.50.24:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=deepl.com&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79#🇸🇪 SE [GRAY VPN]
+vless://3824f134-a633-4318-9c2a-79887bf811a0@152.53.1.112:7443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=chat.deepseek.com&fp=chrome&pbk=5QAO98ot2U7TcGs_f6EEaQjCzNOJLNHqPf6smYsdFVI&sid=be0ce047#🇦🇹 AT [GRAY VPN]
 vless://1ad4aa60-9050-4bc2-b3c6-551fd3bd8c09@89.125.60.236:13893?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=oHql-On8aGXhj2PMd0v1vGi23Fbr0jlLT1OWke1LUS0&sid=23&sni=germany1.grovpn.com&spx=/#🇩🇪 DE [GRAY VPN]
