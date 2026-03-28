@@ -4,7 +4,7 @@
 #profile-icon-url: https://ibb.co/Dg4KjSfQ
 #subscription-userinfo: upload=0; download=0; total=214748364800; expire=1775001600
 
-vless://1ad4aa60-9050-4bc2-b3c6-551fd3bd8c09@138.124.74.14:11846?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=arAwNjquRc-K-e2VLZPRRUkkdrKRD6IE6JnSGFkYLj0&sid=f662b919db245a&sni=botapi.max.ru&spx=/#🇳🇱 NL [GRAY VPN]
-vless://0cfb8127-873d-46ca-9f31-f7918cdaaf11@cloud4.whost-solutions.ru:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=&pbk=IAdOYYmEMPFAhpVUhqfML58AVtYPdAb71R_HAPf0N0k&sid=&sni=cloud.whost-solutions.ru&path=&host=#🇱🇹 LT [GRAY VPN]
 vless://3824f134-a633-4318-9c2a-79887bf811a0@152.53.1.112:7443?security=reality&type=tcp&flow=xtls-rprx-vision&sni=chat.deepseek.com&fp=chrome&pbk=5QAO98ot2U7TcGs_f6EEaQjCzNOJLNHqPf6smYsdFVI&sid=be0ce047#🇦🇹 AT [GRAY VPN]
-vless://1ad4aa60-9050-4bc2-b3c6-551fd3bd8c09@89.125.60.236:13893?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=oHql-On8aGXhj2PMd0v1vGi23Fbr0jlLT1OWke1LUS0&sid=23&sni=germany1.grovpn.com&spx=/#🇩🇪 DE [GRAY VPN]
+vless://1ad4aa60-9050-4bc2-b3c6-551fd3bd8c09@213.165.37.13:13632?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=HqbHZzSgO0Mk-7zi2y-ztFFvcN76ez24VnkNOHdgGAA&sid=3b38&sni=nederland.grovpn.com&spx=/#🇳🇱 NL [GRAY VPN]
+vless://15041021-33ff-447e-bdd2-5a6f226f5ba2@de3.vpn-club-service.ru:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=yDPh2enztmRE8NH294bVNoILyZaQmZnH1gBvrd9RGQo&sid=a1b2c3d4&sni=help.max.ru#🇩🇪 DE [GRAY VPN]
+vless://95b9785e-2a82-4359-9527-ecf4aa97f176@212.95.58.194:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=ads.x5.ru&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc#🇩🇪 DE [GRAY VPN]
